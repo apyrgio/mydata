@@ -9,8 +9,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 xsdata = "^24.1"
+requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
+pydoc-markdown = "^4.8.2"
 ruff = "^0.1.14"
 xsdata = {extras = ["cli"], version = "^24.1"}
 
