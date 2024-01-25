@@ -8,8 +8,9 @@ from xsdata.models.datatype import XmlDate, XmlTime
 @dataclass
 class ErrorType:
     """
-    :ivar message: Μήνυμα Σφάλματος
-    :ivar code: Κωδικός Σφάλαματος
+    Attributes:
+        message: Μήνυμα Σφάλματος
+        code: Κωδικός Σφάλαματος
     """
 
     message: Optional[str] = field(
@@ -31,12 +32,13 @@ class ErrorType:
 @dataclass
 class InvoiceProviderType:
     """
-    :ivar issuer_vat: ΑΦΜ Εκδότη
-    :ivar invoice_provider_mark: Μοναδικός Αριθμός Καταχώρησης
-        παραστατικού Παρόχου
-    :ivar invoice_uid: Αναγνωριστικό οντότητας
-    :ivar authentication_code: Συμβολοσειρά Αυθεντικοποίησης
-        Παραστατικού Παρόχου
+    Attributes:
+        issuer_vat: ΑΦΜ Εκδότη
+        invoice_provider_mark: Μοναδικός Αριθμός Καταχώρησης
+            παραστατικού Παρόχου
+        invoice_uid: Αναγνωριστικό οντότητας
+        authentication_code: Συμβολοσειρά Αυθεντικοποίησης Παραστατικού
+            Παρόχου
     """
 
     issuer_vat: Optional[str] = field(
@@ -76,7 +78,8 @@ class InvoiceProviderType:
 @dataclass
 class ProviderInfoType:
     """
-    :ivar vatnumber: ΑΦΜ
+    Attributes:
+        vatnumber: ΑΦΜ
     """
 
     vatnumber: List[str] = field(
@@ -114,7 +117,8 @@ class ContinuationTokenType1:
 @dataclass
 class ReceptionEmailsType:
     """
-    :ivar email: Email
+    Attributes:
+        email: Email
     """
 
     class Meta:
@@ -131,10 +135,11 @@ class ReceptionEmailsType:
 @dataclass
 class AddressType:
     """
-    :ivar street:
-    :ivar number: Αριθμός
-    :ivar postal_code: ΤΚ
-    :ivar city:
+    Attributes:
+        street:
+        number: Αριθμός
+        postal_code: ΤΚ
+        city:
     """
 
     class Meta:
@@ -178,10 +183,11 @@ class AddressType:
 @dataclass
 class CancelledInvoiceType:
     """
-    :ivar invoice_mark: Μοναδικός Αριθμός Καταχώρησης του ακυρωμένου
-        Παραστατικού
-    :ivar cancellation_mark: Μοναδικός Αριθμός Καταχώρησης της Ακύρωσης
-    :ivar cancellation_date: Ημερομηνία Ακύρωσης Παραστατικού
+    Attributes:
+        invoice_mark: Μοναδικός Αριθμός Καταχώρησης του ακυρωμένου
+            Παραστατικού
+        cancellation_mark: Μοναδικός Αριθμός Καταχώρησης της Ακύρωσης
+        cancellation_date: Ημερομηνία Ακύρωσης Παραστατικού
     """
 
     class Meta:
@@ -720,9 +726,10 @@ class InvoiceType(Enum):
 @dataclass
 class PaymentMethodDetailType:
     """
-    :ivar type_value: Τύπος Πληρωμής
-    :ivar amount: Αναλογούν Ποσό
-    :ivar payment_method_info: Λοιπές Πληροφορίες
+    Attributes:
+        type_value: Τύπος Πληρωμής
+        amount: Αναλογούν Ποσό
+        payment_method_info: Λοιπές Πληροφορίες
     """
 
     class Meta:
@@ -763,10 +770,11 @@ class PaymentMethodDetailType:
 @dataclass
 class ShipType:
     """
-    :ivar application_id: Αριθμός Δήλωσης διενέργειας δραστηριότητας
-    :ivar application_date: Ημερομηνία Δήλωσης
-    :ivar doy:
-    :ivar ship_id: Στοιχεία Πλοίου
+    Attributes:
+        application_id: Αριθμός Δήλωσης διενέργειας δραστηριότητας
+        application_date: Ημερομηνία Δήλωσης
+        doy:
+        ship_id: Στοιχεία Πλοίου
     """
 
     class Meta:
@@ -812,11 +820,12 @@ class ShipType:
 @dataclass
 class TaxTotalsType:
     """
-    :ivar tax_type: Είδος Φόρου
-    :ivar tax_category: Κατηγορία Φόρου
-    :ivar underlying_value: Υποκείμενη Αξία
-    :ivar tax_amount: Ποσό Φόρου
-    :ivar id:
+    Attributes:
+        tax_type: Είδος Φόρου
+        tax_category: Κατηγορία Φόρου
+        underlying_value: Υποκείμενη Αξία
+        tax_amount: Ποσό Φόρου
+        id:
     """
 
     class Meta:
@@ -877,7 +886,8 @@ class TaxTotalsType:
 @dataclass
 class TransportDetailType:
     """
-    :ivar vehicle_number: Αριθμός Μεταφορικού Μέσου
+    Attributes:
+        vehicle_number: Αριθμός Μεταφορικού Μέσου
     """
 
     class Meta:
@@ -1110,7 +1120,8 @@ class RequestedProviderDoc:
 @dataclass
 class ReceptionProvidersType:
     """
-    :ivar provider_info: Πληροφορίες Παρόχου
+    Attributes:
+        provider_info: Πληροφορίες Παρόχου
     """
 
     class Meta:
@@ -1128,14 +1139,15 @@ class ReceptionProvidersType:
 @dataclass
 class PartyType:
     """
-    :ivar vat_number:
-    :ivar country: Κωδ. Χώρας
-    :ivar branch: Αρ. Εγκατάστασης
-    :ivar name:
-    :ivar address: Διεύθυνση
-    :ivar document_id_no:
-    :ivar supply_account_no: Αρ. Παροχής Ηλ. Ρεύματος
-    :ivar country_document_id: Κωδ. Χώρας Έκδοσης Επίσημου Εγγράφου
+    Attributes:
+        vat_number:
+        country: Κωδ. Χώρας
+        branch: Αρ. Εγκατάστασης
+        name:
+        address: Διεύθυνση
+        document_id_no:
+        supply_account_no: Αρ. Παροχής Ηλ. Ρεύματος
+        country_document_id: Κωδ. Χώρας Έκδοσης Επίσημου Εγγράφου
     """
 
     class Meta:
@@ -1213,13 +1225,14 @@ class PartyType:
 @dataclass
 class ExpensesClassificationType:
     """
-    :ivar classification_type: Κωδικός Χαρακτηρισμού
-    :ivar classification_category: Κατηγορία Χαρακτηρισμού
-    :ivar amount: Ποσό Χαρακτηρισμού
-    :ivar vat_amount: Πόσο Φόρου
-    :ivar vat_category: Κατηγορία ΦΠΑ
-    :ivar vat_exemption_category: Κατηγορία Εξαίρεσης ΦΠΑ
-    :ivar id: Μοναδικός Αριθμός Χαρακτηρισμού
+    Attributes:
+        classification_type: Κωδικός Χαρακτηρισμού
+        classification_category: Κατηγορία Χαρακτηρισμού
+        amount: Ποσό Χαρακτηρισμού
+        vat_amount: Πόσο Φόρου
+        vat_category: Κατηγορία ΦΠΑ
+        vat_exemption_category: Κατηγορία Εξαίρεσης ΦΠΑ
+        id: Μοναδικός Αριθμός Χαρακτηρισμού
     """
 
     class Meta:
@@ -1297,10 +1310,11 @@ class ExpensesClassificationType:
 @dataclass
 class IncomeClassificationType:
     """
-    :ivar classification_type: Κωδικός Χαρακτηρισμού
-    :ivar classification_category: Κατηγορία Χαρακτηρισμού
-    :ivar amount: Ποσό Χαρακτηρισμού
-    :ivar id: Μοναδικός Αριθμός Χαρακτηρισμού
+    Attributes:
+        classification_type: Κωδικός Χαρακτηρισμού
+        classification_category: Κατηγορία Χαρακτηρισμού
+        amount: Ποσό Χαρακτηρισμού
+        id: Μοναδικός Αριθμός Χαρακτηρισμού
     """
 
     class Meta:
@@ -1350,17 +1364,18 @@ class IncomeClassificationType:
 @dataclass
 class ResponseType:
     """
-    :ivar index: ΑΑ γραμμής οντότητας
-    :ivar invoice_uid: Αναγνωριστικό οντότητας
-    :ivar invoice_mark: Μοναδικός Αριθμός Καταχώρησης παραστατικού
-    :ivar qr_url: QR Code Url
-    :ivar classification_mark: Μοναδικός Αριθμός Παραλαβής Χαρακτηρισμού
-    :ivar cancellation_mark: Μοναδικός Αριθμός Ακύρωσης
-    :ivar authentication_code: Συμβολοσειρά Αυθεντικοποίησης Παρόχου
-    :ivar reception_providers: Πάροχοι Λήπτη
-    :ivar reception_emails: Email Παραλαβής
-    :ivar errors: Λίστα Σφαλμάτων
-    :ivar status_code: Κωδικός αποτελέσματος
+    Attributes:
+        index: ΑΑ γραμμής οντότητας
+        invoice_uid: Αναγνωριστικό οντότητας
+        invoice_mark: Μοναδικός Αριθμός Καταχώρησης παραστατικού
+        qr_url: QR Code Url
+        classification_mark: Μοναδικός Αριθμός Παραλαβής Χαρακτηρισμού
+        cancellation_mark: Μοναδικός Αριθμός Ακύρωσης
+        authentication_code: Συμβολοσειρά Αυθεντικοποίησης Παρόχου
+        reception_providers: Πάροχοι Λήπτη
+        reception_emails: Email Παραλαβής
+        errors: Λίστα Σφαλμάτων
+        status_code: Κωδικός αποτελέσματος
     """
 
     index: Optional[int] = field(
@@ -1454,8 +1469,9 @@ class ResponseType:
 @dataclass
 class EntityType:
     """
-    :ivar type_value: Κατηγορία
-    :ivar entity_data: Στοιχεία Οντότητας
+    Attributes:
+        type_value: Κατηγορία
+        entity_data: Στοιχεία Οντότητας
     """
 
     class Meta:
@@ -1486,33 +1502,33 @@ class EntityType:
 @dataclass
 class InvoiceRowType:
     """
-    :ivar line_number: ΑΑ Γραμμής
-    :ivar rec_type: Είδος Γραμμής
-    :ivar item_descr: Περιγραφή Είδους
-    :ivar fuel_code: Κωδικός Καυσίμου
-    :ivar quantity: Ποσότητα
-    :ivar measurement_unit: Είδος Ποσότητας
-    :ivar invoice_detail_type: Επισήμανση
-    :ivar net_value: Καθαρή Αξία
-    :ivar vat_category: Κατηγορία ΦΠΑ
-    :ivar vat_amount: Ποσό ΦΠΑ
-    :ivar vat_exemption_category: Κατηγορία Αιτίας Εξαίρεσης ΦΠΑ
-    :ivar dienergia: ΠΟΛ 1177/2018 Αρ. 27
-    :ivar discount_option: Δικαίωμα Έκπτωσης
-    :ivar withheld_amount: Ποσό Παρ. Φόρου
-    :ivar withheld_percent_category: Κατηγορία Συντελεστή  Παρ. Φόρου
-    :ivar stamp_duty_amount: Ποσό Χαρτοσήμου
-    :ivar stamp_duty_percent_category: Κατηγορία Συντελεστή  Χαρτοσήμου
-    :ivar fees_amount: Ποσό Τελών
-    :ivar fees_percent_category: Κατηγορία Συντελεστή Τελών
-    :ivar other_taxes_percent_category: Κατηγορία Συντελεστή Λοιπών
-        Φόρων
-    :ivar other_taxes_amount: Ποσό Φόρου Διαμονης
-    :ivar deductions_amount: Ποσό Κρατήσεων
-    :ivar line_comments: Σχόλια Γραμμής
-    :ivar income_classification: Λίστα Χαρακτηρισμών Εσόδων
-    :ivar expenses_classification: Λίστα Χαρακτηρισμού Εξόδων
-    :ivar quantity15: Ποσότητα Θερμοκρασίας 15 βαθμών
+    Attributes:
+        line_number: ΑΑ Γραμμής
+        rec_type: Είδος Γραμμής
+        item_descr: Περιγραφή Είδους
+        fuel_code: Κωδικός Καυσίμου
+        quantity: Ποσότητα
+        measurement_unit: Είδος Ποσότητας
+        invoice_detail_type: Επισήμανση
+        net_value: Καθαρή Αξία
+        vat_category: Κατηγορία ΦΠΑ
+        vat_amount: Ποσό ΦΠΑ
+        vat_exemption_category: Κατηγορία Αιτίας Εξαίρεσης ΦΠΑ
+        dienergia: ΠΟΛ 1177/2018 Αρ. 27
+        discount_option: Δικαίωμα Έκπτωσης
+        withheld_amount: Ποσό Παρ. Φόρου
+        withheld_percent_category: Κατηγορία Συντελεστή  Παρ. Φόρου
+        stamp_duty_amount: Ποσό Χαρτοσήμου
+        stamp_duty_percent_category: Κατηγορία Συντελεστή  Χαρτοσήμου
+        fees_amount: Ποσό Τελών
+        fees_percent_category: Κατηγορία Συντελεστή Τελών
+        other_taxes_percent_category: Κατηγορία Συντελεστή Λοιπών Φόρων
+        other_taxes_amount: Ποσό Φόρου Διαμονης
+        deductions_amount: Ποσό Κρατήσεων
+        line_comments: Σχόλια Γραμμής
+        income_classification: Λίστα Χαρακτηρισμών Εσόδων
+        expenses_classification: Λίστα Χαρακτηρισμού Εξόδων
+        quantity15: Ποσότητα Θερμοκρασίας 15 βαθμών
     """
 
     class Meta:
@@ -1776,16 +1792,17 @@ class InvoiceRowType:
 @dataclass
 class InvoiceSummaryType:
     """
-    :ivar total_net_value: Σύνολο Καθαρής Αξίας
-    :ivar total_vat_amount: Σύνολο ΦΠΑ
-    :ivar total_withheld_amount: Σύνολο Παρ. Φόρων
-    :ivar total_fees_amount: Σύνολο Τελών
-    :ivar total_stamp_duty_amount: Σύνολο Χαρτοσήμου
-    :ivar total_other_taxes_amount: Σύνολο Λοιπών Φόρων
-    :ivar total_deductions_amount: Σύνολο Κρατήσεων
-    :ivar total_gross_value: Συνολική Αξία
-    :ivar income_classification: Λίστα Χαρακτηρισμών Εσόδων
-    :ivar expenses_classification:
+    Attributes:
+        total_net_value: Σύνολο Καθαρής Αξίας
+        total_vat_amount: Σύνολο ΦΠΑ
+        total_withheld_amount: Σύνολο Παρ. Φόρων
+        total_fees_amount: Σύνολο Τελών
+        total_stamp_duty_amount: Σύνολο Χαρτοσήμου
+        total_other_taxes_amount: Σύνολο Λοιπών Φόρων
+        total_deductions_amount: Σύνολο Κρατήσεων
+        total_gross_value: Συνολική Αξία
+        income_classification: Λίστα Χαρακτηρισμών Εσόδων
+        expenses_classification:
     """
 
     class Meta:
@@ -1908,9 +1925,9 @@ class InvoiceSummaryType:
 @dataclass
 class InvoicesExpensesClassificationDetailType:
     """
-    :ivar line_number: Γραμμή Παραστατικού
-    :ivar expenses_classification_detail_data: Λίστα Χαρακτηρισμών
-        Εσόδων
+    Attributes:
+        line_number: Γραμμή Παραστατικού
+        expenses_classification_detail_data: Λίστα Χαρακτηρισμών Εσόδων
     """
 
     class Meta:
@@ -1943,8 +1960,9 @@ class InvoicesExpensesClassificationDetailType:
 @dataclass
 class InvoicesIncomeClassificationDetailType:
     """
-    :ivar line_number: Γραμμή Παραστατικού
-    :ivar income_classification_detail_data: Λίστα Χαρακτηρισμών Εσόδων
+    Attributes:
+        line_number: Γραμμή Παραστατικού
+        income_classification_detail_data: Λίστα Χαρακτηρισμών Εσόδων
     """
 
     class Meta:
@@ -1990,23 +2008,24 @@ class ResponseDoc:
 @dataclass
 class InvoiceHeaderType:
     """
-    :ivar series: Σειρά Παραστατικού
-    :ivar aa: ΑΑ Παραστατικού
-    :ivar issue_date: Ημερομηνία Έκδοσης
-    :ivar invoice_type: Είδος Παραστατικού
-    :ivar vat_payment_suspension: Αναστολή Καταβολής ΦΠΑ
-    :ivar currency: Νόμισμα
-    :ivar exchange_rate: Ισοτιμία
-    :ivar correlated_invoices: Συσχετιζόμενα Παραστατικά
-    :ivar self_pricing: Ένδειξη Αυτοτιμολόγησης
-    :ivar dispatch_date: Ημερομηνία  Έναρξης Αποστολής
-    :ivar dispatch_time: Ώρα Έναρξης Αποστολής
-    :ivar vehicle_number: Αριθμός Οχήματος
-    :ivar move_purpose: Σκοπός Διακίνησης
-    :ivar fuel_invoice: Παραστατικό Καυσίμων
-    :ivar special_invoice_category: Ειδική Κατηγορία Παραστατικού
-    :ivar invoice_variation_type: Τύπος Απόκλισης Παραστατικού
-    :ivar other_correlated_entities: Λοιπές συσχετιζόμενες οντοτήτες
+    Attributes:
+        series: Σειρά Παραστατικού
+        aa: ΑΑ Παραστατικού
+        issue_date: Ημερομηνία Έκδοσης
+        invoice_type: Είδος Παραστατικού
+        vat_payment_suspension: Αναστολή Καταβολής ΦΠΑ
+        currency: Νόμισμα
+        exchange_rate: Ισοτιμία
+        correlated_invoices: Συσχετιζόμενα Παραστατικά
+        self_pricing: Ένδειξη Αυτοτιμολόγησης
+        dispatch_date: Ημερομηνία  Έναρξης Αποστολής
+        dispatch_time: Ώρα Έναρξης Αποστολής
+        vehicle_number: Αριθμός Οχήματος
+        move_purpose: Σκοπός Διακίνησης
+        fuel_invoice: Παραστατικό Καυσίμων
+        special_invoice_category: Ειδική Κατηγορία Παραστατικού
+        invoice_variation_type: Τύπος Απόκλισης Παραστατικού
+        other_correlated_entities: Λοιπές συσχετιζόμενες οντοτήτες
     """
 
     class Meta:
@@ -2166,13 +2185,14 @@ class InvoiceHeaderType:
 @dataclass
 class InvoiceExpensesClassificationType:
     """
-    :ivar invoice_mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
-    :ivar classification_mark: Αποδεικτικό Λήψης Χαρακτηρισμού Εξόδων.
-        Συμπληρώνεται από την Υπηρεσία
-    :ivar entity_vat_number: ΑΦΜ Οντότητας Αναφοράς
-    :ivar transaction_mode: Αιτιολογία Συναλλαγής
-    :ivar invoices_expenses_classification_details:
-    :ivar classification_post_mode: Μέθοδος Υποβολής Χαρακτηρισμού
+    Attributes:
+        invoice_mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
+        classification_mark: Αποδεικτικό Λήψης Χαρακτηρισμού Εξόδων.
+            Συμπληρώνεται από την Υπηρεσία
+        entity_vat_number: ΑΦΜ Οντότητας Αναφοράς
+        transaction_mode: Αιτιολογία Συναλλαγής
+        invoices_expenses_classification_details:
+        classification_post_mode: Μέθοδος Υποβολής Χαρακτηρισμού
     """
 
     class Meta:
@@ -2240,12 +2260,13 @@ class InvoiceExpensesClassificationType:
 @dataclass
 class InvoiceIncomeClassificationType:
     """
-    :ivar invoice_mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
-    :ivar classification_mark: Αποδεικτικό Λήψης Χαρακτηρισμού Εσόδων.
-        Συμπληρώνεται από την Υπηρεσία
-    :ivar entity_vat_number: ΑΦΜ Οντότητας Αναφοράς
-    :ivar transaction_mode: Αιτιολογία Συναλλαγής
-    :ivar invoices_income_classification_details:
+    Attributes:
+        invoice_mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
+        classification_mark: Αποδεικτικό Λήψης Χαρακτηρισμού Εσόδων.
+            Συμπληρώνεται από την Υπηρεσία
+        entity_vat_number: ΑΦΜ Οντότητας Αναφοράς
+        transaction_mode: Αιτιολογία Συναλλαγής
+        invoices_income_classification_details:
     """
 
     class Meta:
@@ -2303,22 +2324,23 @@ class InvoiceIncomeClassificationType:
 @dataclass
 class AadeBookInvoiceType:
     """
-    :ivar uid: Αναγνωριστικό Παραστατικού
-    :ivar mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
-    :ivar cancelled_by_mark: Μοναδικός Αριθμός Καταχώρησης Ακυρωτικού
-    :ivar authentication_code: Συμβολοσειρά Αυθεντικοποίησης Παρόχου
-    :ivar transmission_failure: Αδυναμία Επικοινωνίας Παρόχου ή Αδυναμία
-        διαβίβασης ERP
-    :ivar issuer: Στοιχεία Εκδότη
-    :ivar counterpart: Στοιχεία Λήπτη
-    :ivar invoice_header: Γενικά Στοιχεία
-    :ivar payment_methods: Πληρωμές
-    :ivar invoice_details: Λεπτομέρειες Παραστατικού
-    :ivar taxes_totals: Σύνολα Φόρων
-    :ivar invoice_summary: Συγκεντρωτικά Στοιχεία
-    :ivar qr_code_url: QR Code Url
-    :ivar other_transport_details: Λοιπές Λεπτομέρειες Διακίνησης
-        (Ορισμός - Αλλαγή Μτφ Μέσων, Μεταφορτώσεις, κλπ)
+    Attributes:
+        uid: Αναγνωριστικό Παραστατικού
+        mark: Μοναδικός Αριθμός Καταχώρησης Παραστατικού
+        cancelled_by_mark: Μοναδικός Αριθμός Καταχώρησης Ακυρωτικού
+        authentication_code: Συμβολοσειρά Αυθεντικοποίησης Παρόχου
+        transmission_failure: Αδυναμία Επικοινωνίας Παρόχου ή Αδυναμία
+            διαβίβασης ERP
+        issuer: Στοιχεία Εκδότη
+        counterpart: Στοιχεία Λήπτη
+        invoice_header: Γενικά Στοιχεία
+        payment_methods: Πληρωμές
+        invoice_details: Λεπτομέρειες Παραστατικού
+        taxes_totals: Σύνολα Φόρων
+        invoice_summary: Συγκεντρωτικά Στοιχεία
+        qr_code_url: QR Code Url
+        other_transport_details: Λοιπές Λεπτομέρειες Διακίνησης (Ορισμός
+            - Αλλαγή Μτφ Μέσων, Μεταφορτώσεις, κλπ)
     """
 
     class Meta:
@@ -2441,7 +2463,8 @@ class AadeBookInvoiceType:
     @dataclass
     class PaymentMethods:
         """
-        :ivar payment_method_details: Στοιχεία Πληρωμών
+        Attributes:
+            payment_method_details: Στοιχεία Πληρωμών
         """
 
         payment_method_details: List[PaymentMethodDetailType] = field(
