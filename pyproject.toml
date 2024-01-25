@@ -8,10 +8,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-xsdata = "*"
+xsdata = "^24.1"
 
-[tool.poetry.group.lint.dependencies]
-ruff = "*"
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.14"
+xsdata = {extras = ["cli"], version = "^24.1"}
 
 [build-system]
 requires = ["poetry-core"]
