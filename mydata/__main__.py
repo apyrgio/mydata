@@ -12,16 +12,20 @@ import rich.pretty
 import sys
 
 from . import client
-from .models_v1_0_8 import AadeBookInvoiceType, InvoicesDoc
+
+FMT_XML = "xml"
+FMT_PRETTY = "pretty"
+FMT_CHOICE = click.Choice([FMT_XML, FMT_PRETTY])
 
 
 def printer(obj, fmt):
-    if fmt == "xml":
+    if fmt == FMT_XML:
         print(obj.xml)
     else:
-        del(obj.xml)
+        if hasattr(obj, "xml"):
+            del obj.xml
         dct = dataclasses.asdict(obj)
-        if fmt == "pretty":
+        if fmt == FMT_PRETTY:
             rich.pretty.pprint(dct)
         else:
             raise ValueError(f"Unexpected format type: {fmt}")
@@ -72,8 +76,7 @@ def api(ctx):
 
 @api.command()
 @click.option("-f", "--file")
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="xml")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_XML)
 @click.pass_obj
 def send_invoices(c, file):
     resp = c.send_invoices(open(file).read())
@@ -82,8 +85,7 @@ def send_invoices(c, file):
 
 @api.command()
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="xml")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_XML)
 @click.pass_obj
 def request_docs(c, output, **options):
     resp = c.request_docs(**options)
@@ -92,8 +94,7 @@ def request_docs(c, output, **options):
 
 @api.command()
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="xml")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_XML)
 @click.pass_obj
 def request_transmitted_docs(c, output, **options):
     resp = c.request_transmitted_docs(**options)
@@ -176,8 +177,7 @@ def get_invoice(c, mark):
 
 @invoices.command()
 @click.argument("mark")
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="pretty")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_PRETTY)
 @click.pass_obj
 def show(c, mark, output):
     inv = get_invoice(c, mark)
@@ -213,9 +213,8 @@ def duplicate(c, mark):
 
 
 @invoices.command()
-@click.option("-f", "--file")
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="pretty")
+@click.argument("file")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_PRETTY)
 @click.pass_obj
 def send(c, file, output):
     with open(file) as f:
