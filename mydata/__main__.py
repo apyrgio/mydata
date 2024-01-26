@@ -182,3 +182,19 @@ def qr(c, mark, file):
         print("Invoice found, but does not have QR code URL", file=sys.stderr)
         exit(1)
     qrcode.make(inv.qrcode).save(file)
+
+@invoices.command()
+@click.argument("mark")
+@click.pass_obj
+def duplicate(c, mark):
+    inv = get_invoice(c, mark)
+
+    # Remove any service-provided values ("Συμπληρωνέται από την Υπηρεσία"), as
+    # mentioned in the myDATA API doc.
+    inv.uid = None
+    inv.mark = None
+    inv.cancelled_by_mark = None
+    inv.qr_code_uRL = None
+    inv.authentication_code = None
+
+    print(client.serialize(inv))
