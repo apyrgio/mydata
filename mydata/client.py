@@ -137,7 +137,7 @@ class SendInvoicesEndpoint(Endpoint):
     query_params = None
     method = "POST"
     body_cls_name = "InvoicesDoc"
-    response_cls_name = None
+    response_cls_name = "ResponseDoc"
 
 
 class RequestDocsEndpoint(Endpoint):
@@ -223,8 +223,15 @@ class Client:
         else:
             _params = None
 
-        endpoint.validate_request_body(body)
-        data = None if body is None else serialize(body)
+        if isinstance(body, str):
+            # In that case, the user wants to send an XML.
+            data = body
+        else:
+            # In that case, the user has a Python object and they want to send
+            # it.
+            endpoint.validate_request_body(body)
+            data = None if body is None else serialize(body)
+
 
         resp = self.request(endpoint.method, url, params=_params, data=data)
         logger.debug(f"Response body: {resp.text}")
@@ -247,7 +254,7 @@ class Client:
             if endpoint.response_cls is None:
                 raise ValueError(
                     f"Endpoint {endpoint.path} should not return an HTTP"
-                    f" response body: {body}"
+                    f" response body: {resp.text}"
                 )
             else:
                 parsed = parse(resp.text, endpoint.response_cls)
