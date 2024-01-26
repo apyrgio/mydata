@@ -71,11 +71,13 @@ def api(ctx):
 
 
 @api.command()
+@click.option("-f", "--file")
+@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
+              default="xml")
 @click.pass_obj
-def send_invoice(c):
-    invoice = AadeBookInvoiceType()
-    invoices = InvoicesDoc(invoice=[invoice])
-    resp = c.send_invoices(invoices)
+def send_invoices(c, file):
+    resp = c.send_invoices(open(file).read())
+    printer(resp, output)
 
 
 @api.command()
@@ -207,4 +209,20 @@ def duplicate(c, mark):
     inv.qr_code_uRL = None
     inv.authentication_code = None
 
-    print(client.serialize(inv))
+    print(client.serialize(inv).strip())
+
+
+@invoices.command()
+@click.option("-f", "--file")
+@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
+              default="pretty")
+@click.pass_obj
+def send(c, file, output):
+    with open(file) as f:
+        xml = f.read()
+    endpoint = client.SendInvoicesEndpoint(c.prod)
+    invoice_cls = getattr(endpoint.models_module, "AadeBookInvoiceType")
+    inv = client.parse(xml, invoice_cls)
+    invoices = endpoint.body_cls(invoice=[inv])
+    resp = c.send_invoices(invoices)
+    printer(resp, output)
