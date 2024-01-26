@@ -225,3 +225,16 @@ def send(c, file, output):
     invoices = endpoint.body_cls(invoice=[inv])
     resp = c.send_invoices(invoices)
     printer(resp, output)
+
+
+@invoices.command()
+@click.argument("file")
+@click.option("-o", "--output", type=FMT_CHOICE, default=FMT_PRETTY)
+@click.pass_obj
+def validate(c, file, output):
+    with open(file) as f:
+        xml = f.read()
+    endpoint = client.SendInvoicesEndpoint(c.prod)
+    invoice_cls = getattr(endpoint.models_module, "AadeBookInvoiceType")
+    inv = client.parse(xml, invoice_cls)
+    printer(inv, output)
