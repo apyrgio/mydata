@@ -7,9 +7,11 @@ license = "MPL-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
+click = "^8.1.7"
 python = "^3.11"
-xsdata = "^24.1"
 requests = "^2.31.0"
+rich = "^13.7.0"
+xsdata = "^24.1"
 
 [tool.poetry.group.dev.dependencies]
 pydoc-markdown = "^4.8.2"
