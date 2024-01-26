@@ -3,6 +3,7 @@ import dataclasses
 import functools
 import json
 import logging
+import qrcode
 import rich
 import rich.table
 import rich.console
@@ -107,6 +108,8 @@ def invoices(ctx):
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
 @click.pass_obj
 def list(c, **options):
+    if options["mark"] is None:
+        options["mark"] = 0
     resp = c.request_transmitted_docs(**options)
     if resp.continuation_token:
         raise RuntimeError(
@@ -140,12 +143,8 @@ def list(c, **options):
     console.print(table)
 
 
-@invoices.command()
-@click.argument("mark")
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="pretty")
-@click.pass_obj
-def show(c, mark, output):
+def get_invoice(c, mark):
+    """Get a single invoice from a MARK."""
     start_mark = str(int(mark) - 1)
     resp = c.request_transmitted_docs(mark=start_mark, max_mark=mark)
     if resp.invoices_doc is None:
@@ -158,4 +157,28 @@ def show(c, mark, output):
         raise RuntimeError("BUG! Received more than one invoices")
 
     inv = resp.invoices_doc.invoice[0]
-    printer(resp, output)
+    # FIXME: This is not quite accurate.
+    inv.xml = resp.xml
+    return inv
+
+
+@invoices.command()
+@click.argument("mark")
+@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
+              default="pretty")
+@click.pass_obj
+def show(c, mark, output):
+    inv = get_invoice(c, mark)
+    printer(inv, output)
+
+
+@invoices.command()
+@click.argument("mark")
+@click.option("-f", "--file")
+@click.pass_obj
+def qr(c, mark, file):
+    inv = get_invoice(c, mark)
+    if inv.qr_code_url is None:
+        print("Invoice found, but does not have QR code URL", file=sys.stderr)
+        exit(1)
+    qrcode.make(inv.qrcode).save(file)
