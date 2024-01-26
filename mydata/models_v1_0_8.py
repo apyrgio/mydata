@@ -2960,6 +2960,7 @@ class RequestedDoc:
             metadata={
                 "name": "expensesInvoiceClassification",
                 "type": "Element",
+                "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
             },
         )
 
