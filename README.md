@@ -68,6 +68,11 @@ There are two command groups that you can invoke:
   commands to work with invoices. Basically, it's there to assist the list ->
   retrieve -> copy -> edit -> validate -> send lifecycle of an invoice.
 
+## Legal
+
+Licensed under MPL-2.0. Please read the [`NOTICE.md`](NOTICE.md) and
+[`LICENSE`](LICENSE) files for the full copyright and license information.
+
 ## Useful links
 
 * [myDATA REST API documentation](https://www.aade.gr/epiheiriseis/mydata-ilektronika-biblia-aade/mydata/tehnikes-prodiagrafes-ekdoseis-mydata)
