@@ -3,6 +3,7 @@ import dataclasses
 import functools
 import json
 import logging
+import rich
 import rich.table
 import rich.console
 import rich.tree
@@ -60,7 +61,13 @@ def cli(ctx, username, token, verbose, prod):
     ctx.obj = client.Client(username, token, prod)
 
 
-@cli.command()
+@cli.group()
+@click.pass_context
+def api(ctx):
+    pass
+
+
+@api.command()
 @click.pass_obj
 def send_invoice(c):
     invoice = AadeBookInvoiceType()
@@ -68,7 +75,7 @@ def send_invoice(c):
     resp = c.send_invoices(invoices)
 
 
-@cli.command()
+@api.command()
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
 @click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
               default="xml")
@@ -78,7 +85,7 @@ def request_docs(c, output, **options):
     printer(resp, output)
 
 
-@cli.command()
+@api.command()
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
 @click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
               default="xml")
@@ -86,3 +93,48 @@ def request_docs(c, output, **options):
 def request_transmitted_docs(c, output, **options):
     resp = c.request_transmitted_docs(**options)
     printer(resp, output)
+
+
+@cli.group()
+@click.pass_context
+def invoices(ctx):
+    pass
+
+
+@invoices.command()
+@click_options_gen(client.PARAMS_REQUEST_DOCS)
+@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
+              default="xml")
+@click.pass_obj
+def list(c, output, **options):
+    resp = c.request_transmitted_docs(**options)
+    if resp.continuation_token:
+        raise RuntimeError(
+            "Pagination is not implemented, please narrow down your search"
+        )
+
+    invoices = resp.invoices_doc.invoice
+    table = rich.table.Table(title="Invoices")
+    table.add_column("MARK")
+    table.add_column("A/A")
+    table.add_column("Counter Part")
+    table.add_column("Date")
+    table.add_column("Total Gross")
+    table.add_column("Cancelled")
+
+    for inv in invoices:
+        date = str(inv.invoice_header.issue_date)
+        cancelled = "Yes" if inv.cancelled_by_mark else "No"
+        counter_part = inv.counterpart.vat_number if inv.counterpart else "-"
+
+        table.add_row(
+            str(inv.mark),
+            str(inv.invoice_header.aa),
+            counter_part,
+            date,
+            str(inv.invoice_summary.total_gross_value),
+            cancelled,
+        )
+
+    console = rich.console.Console()
+    console.print(table)
