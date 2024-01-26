@@ -6,6 +6,9 @@ authors = ["Alex Pyrgiotis <apyrgio@gmail.com>"]
 license = "MPL-2.0"
 readme = "README.md"
 
+[tool.poetry.scripts]
+mydata = 'mydata.__main__:cli'
+
 [tool.poetry.dependencies]
 click = "^8.1.7"
 python = "^3.11"
