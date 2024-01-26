@@ -49,8 +49,13 @@ def click_options_gen(params):
 
 
 @click.group()
-@click.option("--username")
-@click.option("--token")
+@click.option("--username", envvar="MYDATA_USERNAME", required=True)
+@click.option(
+    "--token",
+    prompt="Please provide your subscription key",
+    hide_input=True,
+    envvar="MYDATA_TOKEN",
+)
 @click.option("-v", "--verbose", count=True)
 @click.option("--prod", is_flag=True, default=False)
 @click.pass_context
