@@ -7,6 +7,7 @@ import rich
 import rich.table
 import rich.console
 import rich.tree
+import rich.pretty
 
 from . import client
 from .models_v1_0_8 import AadeBookInvoiceType, InvoicesDoc
@@ -19,7 +20,7 @@ def printer(obj, fmt):
         del(obj.xml)
         dct = dataclasses.asdict(obj)
         if fmt == "pretty":
-            rich.inspect(dct)
+            rich.pretty.pprint(dct)
         else:
             raise ValueError(f"Unexpected format type: {fmt}")
 
