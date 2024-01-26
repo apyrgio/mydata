@@ -116,7 +116,6 @@ def list(c, **options):
             "Pagination is not implemented, please narrow down your search"
         )
 
-    invoices = resp.invoices_doc.invoice
     table = rich.table.Table(title="Invoices")
     table.add_column("MARK")
     table.add_column("A/A")
@@ -124,6 +123,11 @@ def list(c, **options):
     table.add_column("Date")
     table.add_column("Total Gross")
     table.add_column("Cancelled")
+
+    if resp.invoices_doc:
+        invoices = resp.invoices_doc.invoice
+    else:
+        invoices = []
 
     for inv in invoices:
         date = str(inv.invoice_header.issue_date)
@@ -143,8 +147,8 @@ def list(c, **options):
     console.print(table)
 
 
-def get_invoice(c, mark):
-    """Get a single invoice from a MARK."""
+def _get_invoice(c, mark):
+    """Get an InvoicesDoc response with a single invoice for a MARK."""
     start_mark = str(int(mark) - 1)
     resp = c.request_transmitted_docs(mark=start_mark, max_mark=mark)
     if resp.invoices_doc is None:
@@ -156,6 +160,12 @@ def get_invoice(c, mark):
     elif len(resp.invoices_doc.invoice) > 1:
         raise RuntimeError("BUG! Received more than one invoices")
 
+    return resp
+
+
+def get_invoice(c, mark):
+    """Get a single invoice from a MARK."""
+    resp = _get_invoice(c, mark)
     inv = resp.invoices_doc.invoice[0]
     # FIXME: This is not quite accurate.
     inv.xml = resp.xml
