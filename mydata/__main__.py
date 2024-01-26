@@ -8,6 +8,7 @@ import rich.table
 import rich.console
 import rich.tree
 import rich.pretty
+import sys
 
 from . import client
 from .models_v1_0_8 import AadeBookInvoiceType, InvoicesDoc
@@ -137,3 +138,24 @@ def list(c, **options):
 
     console = rich.console.Console()
     console.print(table)
+
+
+@invoices.command()
+@click.argument("mark")
+@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
+              default="pretty")
+@click.pass_obj
+def show(c, mark, output):
+    start_mark = str(int(mark) - 1)
+    resp = c.request_transmitted_docs(mark=start_mark, max_mark=mark)
+    if resp.invoices_doc is None:
+        print(
+            f"Could not find a document withe provided MARK: {mark}",
+            file=sys.stderr
+        )
+        exit(1)
+    elif len(resp.invoices_doc.invoice) > 1:
+        raise RuntimeError("BUG! Received more than one invoices")
+
+    inv = resp.invoices_doc.invoice[0]
+    printer(resp, output)
