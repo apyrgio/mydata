@@ -69,6 +69,7 @@ class Endpoint(abc.ABC):
 
     def __init__(self, prod=False):
         self.prod = prod
+        self.models_module = MODELS_MODULE_PROD if self.prod else MODELS_MODULE_DEV
 
     @property
     @abc.abstractmethod
@@ -100,16 +101,14 @@ class Endpoint(abc.ABC):
         """The Python dataclass for the request's body"""
         if self.body_cls_name is None:
             return None
-        mod = MODELS_MODULE_PROD if self.prod else MODEL_MODULE_DEV
-        return getattr(mod, self.body_cls_name)
+        return getattr(self.models_module, self.body_cls_name)
 
     @property
     def response_cls(self):
         """The Python dataclass for the response's body"""
         if self.response_cls_name is None:
             return None
-        mod = MODELS_MODULE_PROD if self.prod else MODEL_MODULE_DEV
-        return getattr(mod, self.response_cls_name)
+        return getattr(self.models_module, self.response_cls_name)
 
     def validate_request_body(self, body):
         if body is None:
