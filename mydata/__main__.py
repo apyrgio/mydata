@@ -104,10 +104,8 @@ def invoices(ctx):
 
 @invoices.command()
 @click_options_gen(client.PARAMS_REQUEST_DOCS)
-@click.option("-o", "--output", type=click.Choice(["xml", "pretty"]),
-              default="xml")
 @click.pass_obj
-def list(c, output, **options):
+def list(c, **options):
     resp = c.request_transmitted_docs(**options)
     if resp.continuation_token:
         raise RuntimeError(
