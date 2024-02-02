@@ -119,10 +119,10 @@ def list(c, **options):
     if options["mark"] is None:
         options["mark"] = 0
     resp = c.request_transmitted_docs(**options)
-    if resp.continuation_token:
-        raise RuntimeError(
-            "Pagination is not implemented, please narrow down your search"
-        )
+    # if resp.continuation_token:
+    #     raise RuntimeError(
+    #         "Pagination is not implemented, please narrow down your search"
+    #     )
 
     table = rich.table.Table(title="Invoices")
     table.add_column("MARK")

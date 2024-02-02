@@ -19,6 +19,7 @@ import abc
 import logging
 import requests
 import urllib.parse
+import urllib3
 
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
@@ -168,6 +169,8 @@ class Client:
         self.auth_headers = {
             HEADER_NAME_USER_ID: self.username,
             HEADER_NAME_TOKEN: self.token,
+            # Hide user agent
+            "User-Agent": urllib3.util.SKIP_HEADER,
         }
 
         self.session = requests.Session()
