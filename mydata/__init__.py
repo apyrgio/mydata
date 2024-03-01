@@ -1,4 +1,4 @@
-from mydata.models_v1_0_7 import (
+from mydata.models_v1_0_8 import (
     AadeBookInvoiceType,
     AddressType,
     CancelledInvoiceType,
