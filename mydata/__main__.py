@@ -220,16 +220,38 @@ def duplicate(c, mark):
 @invoices.command()
 @click.argument("file")
 @click.option("-o", "--output", type=FMT_CHOICE, default=FMT_PRETTY)
+@click.option(
+    "--qr-file",
+    required=True,
+    help="The file where the QR code (PNG) will be saved"
+)
 @click.pass_obj
-def send(c, file, output):
+def send(c, file, output, qr_file):
+    # Parse (and therefore validate) provided invoice.
     with open(file) as f:
         xml = f.read()
     endpoint = client.SendInvoicesEndpoint(c.prod)
     invoice_cls = getattr(endpoint.models_module, "AadeBookInvoiceType")
     inv = client.parse(xml, invoice_cls)
+
+    # Send invoice and validate the response.
     invoices = endpoint.body_cls(invoice=[inv])
     resp = c.send_invoices(invoices)
     printer(resp, output)
+    assert len(resp.response) == 1
+    response_doc = resp.response[0]
+    if response_doc.status_code != "Success":
+        msg= f"Unexpected status code: {response_doc.status_code} != 'Success'"
+        print(msg, file=sys.stderr)
+        exit(1)
+    print("Invoice was submitted successfully", file=sys.stderr)
+
+    # Store the QR code as a PNG.
+    if response_doc.qr_url is None:
+        print("Invoice receipt does not have QR code URL", file=sys.stderr)
+        exit(1)
+    qrcode.make(response_doc.qr_url).save(qr_file)
+    print(f"QR code URL saved successfully in {qr_file}", file=sys.stderr)
 
 
 @invoices.command()
