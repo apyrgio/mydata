@@ -1,3 +1,6 @@
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/mydata-client)](https://pypi.org/project/mydata-client/)
+[![PyPI version](https://badge.fury.io/py/mydata-client.svg)](https://badge.fury.io/py/mydata-client)
+
 # CLI / HTTP client for myDATA
 
 This project allows users to interact with [myDATA](https://www.aade.gr/en/mydata)
@@ -6,10 +9,10 @@ from the CLI.
 
 ## Install
 
-Install it from PYPI:
+Install it with `pip`:
 
 ```
-pip install mydata-client
+python -m pip install mydata-client
 ```
 
 ## Usage
