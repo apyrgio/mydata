@@ -1,10 +1,15 @@
 [tool.poetry]
-name = "mydata"
+name = "mydata-client"
 version = "0.1.0"
 description = "Python interface for IARP's myDATA service"
 authors = ["Alex Pyrgiotis <apyrgio@gmail.com>"]
 license = "MPL-2.0"
 readme = "README.md"
+# The distribution pacakge is different from the import package, so we need to
+# explicitly add it. See:
+#
+# https://packaging.python.org/en/latest/discussions/distribution-package-vs-import-package/
+packages = [{include = "mydata"}]
 
 [tool.poetry.scripts]
 mydata = 'mydata.__main__:cli'
