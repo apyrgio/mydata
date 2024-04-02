@@ -16,7 +16,7 @@ mydata = 'mydata.__main__:cli'
 
 [tool.poetry.dependencies]
 click = "^8.1.7"
-python = "^3.11"
+python = "^3.9"
 qrcode = "^7.4.2"
 requests = "^2.31.0"
 rich = "^13.7.0"
