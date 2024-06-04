@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mydata-client"
-version = "0.1.1"
+version = "0.1.2"
 description = "Python interface for IARP's myDATA service"
 authors = ["Alex Pyrgiotis <apyrgio@gmail.com>"]
 license = "MPL-2.0"
