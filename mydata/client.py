@@ -27,10 +27,10 @@ from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.utils.text import camel_case
 
-from . import models_v1_0_8
+from . import models_v1_0_9
 
-MODELS_MODULE_DEV = models_v1_0_8
-MODELS_MODULE_PROD = models_v1_0_8
+MODELS_MODULE_DEV = models_v1_0_9
+MODELS_MODULE_PROD = models_v1_0_9
 
 BASE_URL_DEV = "https://mydataapidev.aade.gr/"
 BASE_URL_PROD = "https://mydatapi.aade.gr/myDATA/"
