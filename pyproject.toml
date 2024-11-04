@@ -24,7 +24,7 @@ xsdata = "^24.1"
 
 [tool.poetry.group.dev.dependencies]
 pydoc-markdown = "^4.8.2"
-ruff = "^0.1.14"
+ruff = "^0.3"
 xsdata = {extras = ["cli"], version = "^24.1"}
 
 [build-system]
