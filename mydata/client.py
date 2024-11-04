@@ -55,7 +55,8 @@ logger = logging.getLogger(__name__)
 
 def parse(obj: str, cls) -> object:
     context = XmlContext()
-    parser = XmlParser(context=context)
+    config = ParserConfig(fail_on_unknown_properties=False)
+    parser = XmlParser(config=config, context=context)
     return parser.from_string(obj, cls)
 
 
