@@ -65,6 +65,12 @@ latest API. You can include them in the project as follows:
   cp -r '/path/to/version v1.0.8 XSDs' schemas/1.0.8
   ```
 
+* Remove the previously generated `mydata/__init__.py` module:
+
+  ```
+  rm mydata/__init__.py
+  ```
+
 * Generate Python classes from the new XSDs. For example, for the 1.0.8 XSDs, we
   generated Python classes with:
 
