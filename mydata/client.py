@@ -201,8 +201,8 @@ class Client:
         # Check if we got an extraneous HTTP parameter.
         if extra_params:
             msg = (
-                f"Unexpected HTTP parameters: {extra}. Expexted params are:"
-                f" {accepted.keys()}"
+                f"Unexpected HTTP parameters: {extra_params}. Expected params"
+                f" are: {accepted.keys()}"
             )
             raise ValueError(msg)
 
