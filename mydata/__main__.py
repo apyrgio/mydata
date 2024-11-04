@@ -139,7 +139,7 @@ def list(c, **options):
 
     for inv in invoices:
         date = str(inv.invoice_header.issue_date)
-        cancelled = "Yes" if inv.cancelled_by_mark else "No"
+        cancelled = "Yes" if getattr(inv, "cancelled_by_mark", False) else "No"
         counter_part = inv.counterpart.vat_number if inv.counterpart else "-"
 
         table.add_row(
