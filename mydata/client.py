@@ -17,12 +17,13 @@ combined with the XSDs of IARP.
 
 import abc
 import logging
-import requests
 import urllib.parse
-import urllib3
 
+import requests
+import urllib3
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
+from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.utils.text import camel_case
@@ -67,10 +68,11 @@ def serialize(obj) -> str:
 
 
 class Endpoint(abc.ABC):
-
     def __init__(self, prod=False):
         self.prod = prod
-        self.models_module = MODELS_MODULE_PROD if self.prod else MODELS_MODULE_DEV
+        self.models_module = (
+            MODELS_MODULE_PROD if self.prod else MODELS_MODULE_DEV
+        )
 
     @property
     @abc.abstractmethod
@@ -131,9 +133,7 @@ class Endpoint(abc.ABC):
                 )
 
 
-
 class SendInvoicesEndpoint(Endpoint):
-
     path = "SendInvoices"
     query_params = None
     method = "POST"
@@ -142,7 +142,6 @@ class SendInvoicesEndpoint(Endpoint):
 
 
 class RequestDocsEndpoint(Endpoint):
-
     path = "RequestDocs"
     query_params = PARAMS_REQUEST_DOCS
     method = "GET"
@@ -151,7 +150,6 @@ class RequestDocsEndpoint(Endpoint):
 
 
 class RequestTransmittedDocsEndpoint(Endpoint):
-
     path = "RequestTransmittedDocs"
     query_params = PARAMS_REQUEST_DOCS
     method = "GET"
@@ -176,11 +174,7 @@ class Client:
         self.session = requests.Session()
 
     def request(
-        self,
-        method: str,
-        url: str,
-        params: dict | None = None,
-        data=None
+        self, method: str, url: str, params: dict | None = None, data=None
     ):
         req = requests.Request(
             method,
@@ -234,7 +228,6 @@ class Client:
             # it.
             endpoint.validate_request_body(body)
             data = None if body is None else serialize(body)
-
 
         resp = self.request(endpoint.method, url, params=_params, data=data)
         logger.debug(f"Response body: {resp.text}")

@@ -1,15 +1,16 @@
-import click
 import dataclasses
 import functools
 import json
 import logging
+import sys
+
+import click
 import qrcode
 import rich
-import rich.table
 import rich.console
-import rich.tree
 import rich.pretty
-import sys
+import rich.table
+import rich.tree
 
 from . import client
 
@@ -45,6 +46,7 @@ def click_options_gen(params):
                 click_dec = click.option(name, default=None)
             dec_func = click_dec(dec_func)
         return dec_func
+
     return decorator
 
 
@@ -162,7 +164,7 @@ def _get_invoice(c, mark):
     if resp.invoices_doc is None:
         print(
             f"Could not find a document withe provided MARK: {mark}",
-            file=sys.stderr
+            file=sys.stderr,
         )
         exit(1)
     elif len(resp.invoices_doc.invoice) > 1:
@@ -200,6 +202,7 @@ def qr(c, mark, file):
         exit(1)
     qrcode.make(inv.qrcode).save(file)
 
+
 @invoices.command()
 @click.argument("mark")
 @click.pass_obj
@@ -223,7 +226,7 @@ def duplicate(c, mark):
 @click.option(
     "--qr-file",
     required=True,
-    help="The file where the QR code (PNG) will be saved"
+    help="The file where the QR code (PNG) will be saved",
 )
 @click.pass_obj
 def send(c, file, output, qr_file):
@@ -241,7 +244,9 @@ def send(c, file, output, qr_file):
     assert len(resp.response) == 1
     response_doc = resp.response[0]
     if response_doc.status_code != "Success":
-        msg= f"Unexpected status code: {response_doc.status_code} != 'Success'"
+        msg = (
+            f"Unexpected status code: {response_doc.status_code} != 'Success'"
+        )
         print(msg, file=sys.stderr)
         exit(1)
     print("Invoice was submitted successfully", file=sys.stderr)
