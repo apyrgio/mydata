@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import Enum
 from typing import List, Optional
+
 from xsdata.models.datatype import XmlDate, XmlTime
 
 
@@ -1248,15 +1249,15 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    classification_category: Optional[
-        ExpensesClassificationCategoryType
-    ] = field(
-        default=None,
-        metadata={
-            "name": "classificationCategory",
-            "type": "Element",
-            "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
-        },
+    classification_category: Optional[ExpensesClassificationCategoryType] = (
+        field(
+            default=None,
+            metadata={
+                "name": "classificationCategory",
+                "type": "Element",
+                "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
+            },
+        )
     )
     amount: Optional[Decimal] = field(
         default=None,
@@ -1330,16 +1331,16 @@ class IncomeClassificationType:
             "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
         },
     )
-    classification_category: Optional[
-        IncomeClassificationCategoryType
-    ] = field(
-        default=None,
-        metadata={
-            "name": "classificationCategory",
-            "type": "Element",
-            "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
-            "required": True,
-        },
+    classification_category: Optional[IncomeClassificationCategoryType] = (
+        field(
+            default=None,
+            metadata={
+                "name": "classificationCategory",
+                "type": "Element",
+                "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
+                "required": True,
+            },
+        )
     )
     amount: Optional[Decimal] = field(
         default=None,
@@ -1944,16 +1945,16 @@ class InvoicesExpensesClassificationDetailType:
             "required": True,
         },
     )
-    expenses_classification_detail_data: List[
-        ExpensesClassificationType
-    ] = field(
-        default_factory=list,
-        metadata={
-            "name": "expensesClassificationDetailData",
-            "type": "Element",
-            "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
-            "min_occurs": 1,
-        },
+    expenses_classification_detail_data: List[ExpensesClassificationType] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "expensesClassificationDetailData",
+                "type": "Element",
+                "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
+                "min_occurs": 1,
+            },
+        )
     )
 
 
@@ -2519,15 +2520,15 @@ class IncomeClassificationsDoc:
     class Meta:
         namespace = "https://www.aade.gr/myDATA/incomeClassificaton/v1.0"
 
-    income_invoice_classification: List[
-        InvoiceIncomeClassificationType
-    ] = field(
-        default_factory=list,
-        metadata={
-            "name": "incomeInvoiceClassification",
-            "type": "Element",
-            "min_occurs": 1,
-        },
+    income_invoice_classification: List[InvoiceIncomeClassificationType] = (
+        field(
+            default_factory=list,
+            metadata={
+                "name": "incomeInvoiceClassification",
+                "type": "Element",
+                "min_occurs": 1,
+            },
+        )
     )
 
 
@@ -2568,14 +2569,14 @@ class RequestedDoc:
             "type": "Element",
         },
     )
-    cancelled_invoices_doc: Optional[
-        "RequestedDoc.CancelledInvoicesDoc"
-    ] = field(
-        default=None,
-        metadata={
-            "name": "cancelledInvoicesDoc",
-            "type": "Element",
-        },
+    cancelled_invoices_doc: Optional["RequestedDoc.CancelledInvoicesDoc"] = (
+        field(
+            default=None,
+            metadata={
+                "name": "cancelledInvoicesDoc",
+                "type": "Element",
+            },
+        )
     )
     income_classifications_doc: Optional[
         "RequestedDoc.IncomeClassificationsDoc"

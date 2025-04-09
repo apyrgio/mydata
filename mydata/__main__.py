@@ -1,6 +1,4 @@
 import dataclasses
-import functools
-import json
 import logging
 import sys
 
@@ -39,7 +37,6 @@ def click_options_gen(params):
         for p, info in params.items():
             name = "--" + p.replace("_", "-")
             is_required = info.get("required")
-            t = info.get("type")
             if is_required:
                 click_dec = click.option(name)
             else:
@@ -85,7 +82,7 @@ def api(ctx):
 @click.option("-f", "--file")
 @click.option("-o", "--output", type=FMT_CHOICE, default=FMT_XML)
 @click.pass_obj
-def send_invoices(c, file):
+def send_invoices(c, file, output):
     resp = c.send_invoices(open(file).read())
     printer(resp, output)
 
