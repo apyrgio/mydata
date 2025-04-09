@@ -58,32 +58,16 @@ poetry install
 Whenever there's an API update, myDATA devs include the XML schemas for the
 latest API. You can include them in the project as follows:
 
-* Add the XML schemas under `schemas/<version>` dir. For example, for the 1.0.8
-  XSDs, we added them with:
+* Download the XSD zipfile from the myDATA page, and take note of its version
+  number (e.g., 1.0.10).
+* Run the following command:
 
   ```
-  cp -r '/path/to/version v1.0.8 XSDs' schemas/1.0.8
+  poetry run ingest-xsd --api-version 1.0.10 /path/to/xsd.zip
   ```
 
-* Remove the previously generated `mydata/__init__.py` module:
+* Commit the final result
 
-  ```
-  rm mydata/__init__.py
-  ```
-
-* Generate Python classes from the new XSDs. For example, for the 1.0.8 XSDs, we
-  generated Python classes with:
-
-
-  ```
-  poetry run xsdata -ss single-package -ds Google -r schemas/1.0.8/ -p mydata.models_v1_0_8
-  ```
-
-* Generate Markdown documentation from the generated Python classes with:
-
-  ```
-  poetry run pydoc-markdown -m mydata.models_v1_0_8 --render-toc > docs/models_v1_0_8.md
-  ```
 
 ## License
 

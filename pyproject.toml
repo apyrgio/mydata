@@ -13,6 +13,7 @@ packages = [{include = "mydata"}]
 
 [tool.poetry.scripts]
 mydata = 'mydata.__main__:cli'
+ingest-xsd = 'mydata.ingest_xsd:ingest'
 
 [tool.poetry.dependencies]
 click = "^8.1.7"
