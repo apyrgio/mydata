@@ -728,89 +728,6 @@ class InvoiceE3DetailType:
 
 
 @dataclass(kw_only=True)
-class InvoiceSummaryType:
-    """
-    Attributes:
-        total_net_value: Σύνολο Καθαρής Αξίας
-        total_vat_amount: Σύνολο ΦΠΑ
-        total_withheld_amount: Σύνολο Παρ. Φόρων
-        total_fees_amount: Σύνολο Τελών
-        total_stamp_duty_amount: Σύνολο Χαρτοσήμου
-        total_other_taxes_amount: Σύνολο Λοιπών Φόρων
-        total_deductions_amount: Σύνολο Κρατήσεων
-        total_gross_value: Συνολική Αξία
-    """
-
-    class Meta:
-        target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
-
-    total_net_value: str = field(
-        metadata={
-            "name": "totalNetValue",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_vat_amount: str = field(
-        metadata={
-            "name": "totalVatAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_withheld_amount: str = field(
-        metadata={
-            "name": "totalWithheldAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_fees_amount: str = field(
-        metadata={
-            "name": "totalFeesAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_stamp_duty_amount: str = field(
-        metadata={
-            "name": "totalStampDutyAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_other_taxes_amount: str = field(
-        metadata={
-            "name": "totalOtherTaxesAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_deductions_amount: str = field(
-        metadata={
-            "name": "totalDeductionsAmount",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-    total_gross_value: str = field(
-        metadata={
-            "name": "totalGrossValue",
-            "type": "Element",
-            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
-        }
-    )
-
-
-@dataclass(kw_only=True)
 class InvoiceVatDetailType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
@@ -1726,6 +1643,8 @@ class InvoiceRowType:
         other_taxes_amount: Ποσό Φόρου Διαμονης
         deductions_amount: Ποσό Κρατήσεων
         line_comments: Σχόλια Γραμμής
+        income_classification: Λίστα Χαρακτηρισμών Εσόδων
+        expenses_classification: Λίστα Χαρακτηρισμού Εξόδων
         quantity15: Ποσότητα Θερμοκρασίας 15 βαθμών
         other_measurement_unit_quantity: Πλήθος Μονάδας Μέτρησης Τεμάχια
             Άλλα
@@ -1768,23 +1687,23 @@ class InvoiceRowType:
             "length": 10,
         },
     )
-    item_code: str = field(
+    item_code: None | str = field(
+        default=None,
         metadata={
             "name": "itemCode",
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
             "max_length": 50,
-        }
+        },
     )
-    item_descr: str = field(
+    item_descr: None | str = field(
+        default=None,
         metadata={
             "name": "itemDescr",
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
-            "required": True,
             "max_length": 300,
-        }
+        },
     )
     fuel_code: None | str = field(
         default=None,
@@ -1946,6 +1865,22 @@ class InvoiceRowType:
             "max_length": 150,
         },
     )
+    income_classification: list[IncomeClassificationType] = field(
+        default_factory=list,
+        metadata={
+            "name": "incomeClassification",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+        },
+    )
+    expenses_classification: list[ExpensesClassificationType] = field(
+        default_factory=list,
+        metadata={
+            "name": "expensesClassification",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+        },
+    )
     quantity15: None | Decimal = field(
         default=None,
         metadata={
@@ -1996,6 +1931,107 @@ class InvoiceRowType:
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
             "max_length": 150,
+        },
+    )
+
+
+@dataclass(kw_only=True)
+class InvoiceSummaryType:
+    """
+    Attributes:
+        total_net_value: Σύνολο Καθαρής Αξίας
+        total_vat_amount: Σύνολο ΦΠΑ
+        total_withheld_amount: Σύνολο Παρ. Φόρων
+        total_fees_amount: Σύνολο Τελών
+        total_stamp_duty_amount: Σύνολο Χαρτοσήμου
+        total_other_taxes_amount: Σύνολο Λοιπών Φόρων
+        total_deductions_amount: Σύνολο Κρατήσεων
+        total_gross_value: Συνολική Αξία
+        income_classification: Λίστα Χαρακτηρισμών Εσόδων
+        expenses_classification:
+    """
+
+    class Meta:
+        target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
+
+    total_net_value: str = field(
+        metadata={
+            "name": "totalNetValue",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_vat_amount: str = field(
+        metadata={
+            "name": "totalVatAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_withheld_amount: str = field(
+        metadata={
+            "name": "totalWithheldAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_fees_amount: str = field(
+        metadata={
+            "name": "totalFeesAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_stamp_duty_amount: str = field(
+        metadata={
+            "name": "totalStampDutyAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_other_taxes_amount: str = field(
+        metadata={
+            "name": "totalOtherTaxesAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_deductions_amount: str = field(
+        metadata={
+            "name": "totalDeductionsAmount",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    total_gross_value: str = field(
+        metadata={
+            "name": "totalGrossValue",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+            "required": True,
+        }
+    )
+    income_classification: list[IncomeClassificationType] = field(
+        default_factory=list,
+        metadata={
+            "name": "incomeClassification",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+        },
+    )
+    expenses_classification: list[ExpensesClassificationType] = field(
+        default_factory=list,
+        metadata={
+            "name": "expensesClassification",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
 
@@ -3226,6 +3262,9 @@ class AadeBookInvoiceType:
         packings_declarations: Δηλώσεις Συσκευασιών
         invoive_delivery_status: Κατάσταση (Status) Παραστατικού Δελτίου
             Διακίνησης
+        delivery_lifecycle: Το σύνολο των γεγονότων του κύκλου ζωής
+            (lifecycle) του παραστατικού διακίνησης. Είναι read-only -
+            παρέχεται από το myDATA κατά την ανάκτηση
     """
 
     class Meta:
@@ -3360,6 +3399,14 @@ class AadeBookInvoiceType:
             "max_inclusive": 7,
         },
     )
+    delivery_lifecycle: None | AadeBookInvoiceType.DeliveryLifecycle = field(
+        default=None,
+        metadata={
+            "name": "deliveryLifecycle",
+            "type": "Element",
+            "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+        },
+    )
 
     @dataclass(kw_only=True)
     class PaymentMethods:
@@ -3389,6 +3436,18 @@ class AadeBookInvoiceType:
             },
         )
 
+    @dataclass(kw_only=True)
+    class DeliveryLifecycle:
+        delivery_events: list[str] = field(
+            default_factory=list,
+            metadata={
+                "name": "deliveryEvents",
+                "type": "Element",
+                "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
+                "min_occurs": 1,
+            },
+        )
+
 
 @dataclass(kw_only=True)
 class InvoicesDoc:
@@ -3399,11 +3458,12 @@ class InvoicesDoc:
     class Meta:
         namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    invoice: AadeBookInvoiceType = field(
+    invoice: list[AadeBookInvoiceType] = field(
+        default_factory=list,
         metadata={
             "type": "Element",
-            "required": True,
-        }
+            "min_occurs": 1,
+        },
     )
 
 

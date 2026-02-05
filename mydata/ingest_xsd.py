@@ -22,6 +22,19 @@ def ingest(api_version, filename):
     with zipfile.ZipFile(filename) as xsd_zip:
         xsd_zip.extractall(schema_dir)
 
+    # XXX: It seems that recent XSDs from AADE have a file like
+    # InvoicesDoc-v2.0.0_aade_detailed.xsd, which is slightly different from
+    # the non-detailed (?) one. For instance, the `itemCode` / `itemDesc`
+    # fields are required in the detailed version.
+    #
+    # If this file remains in the schemas, then xsdata will pick it and will
+    # produce bad Python models, that will break parsing. For this reason, we
+    # remove it here.
+    aade_detailed_xsd = (
+        schema_dir / f"InvoicesDoc-v{api_version}_aade_detailed.xsd"
+    )
+    aade_detailed_xsd.unlink(missing_ok=True)
+
     xsdata_cmd = [
         "xsdata",
         "generate",

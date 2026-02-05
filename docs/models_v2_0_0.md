@@ -14,7 +14,6 @@
   * [AddressType](#mydata.models_2_0_0.AddressType)
   * [CancelledInvoiceType](#mydata.models_2_0_0.CancelledInvoiceType)
   * [EcrtokenType](#mydata.models_2_0_0.EcrtokenType)
-  * [InvoiceSummaryType](#mydata.models_2_0_0.InvoiceSummaryType)
   * [ProviderSignatureType](#mydata.models_2_0_0.ProviderSignatureType)
   * [ShipType](#mydata.models_2_0_0.ShipType)
   * [TaxTotalsType](#mydata.models_2_0_0.TaxTotalsType)
@@ -29,6 +28,7 @@
   * [TransportDetailType](#mydata.models_2_0_0.TransportDetailType)
   * [ReceptionProvidersType](#mydata.models_2_0_0.ReceptionProvidersType)
   * [InvoiceRowType](#mydata.models_2_0_0.InvoiceRowType)
+  * [InvoiceSummaryType](#mydata.models_2_0_0.InvoiceSummaryType)
   * [OtherDeliveryNoteHeaderType](#mydata.models_2_0_0.OtherDeliveryNoteHeaderType)
   * [PartyType](#mydata.models_2_0_0.PartyType)
   * [PaymentMethodDetailType](#mydata.models_2_0_0.PaymentMethodDetailType)
@@ -281,26 +281,6 @@ class EcrtokenType()
 - `session_number` - Μοναδικός 6-ψήφιος κωδικός που χαρακτηρίζει την
   κάθε συναλλαγή
 
-<a id="mydata.models_2_0_0.InvoiceSummaryType"></a>
-
-## InvoiceSummaryType Objects
-
-```python
-@dataclass(kw_only=True)
-class InvoiceSummaryType()
-```
-
-**Attributes**:
-
-- `total_net_value` - Σύνολο Καθαρής Αξίας
-- `total_vat_amount` - Σύνολο ΦΠΑ
-- `total_withheld_amount` - Σύνολο Παρ. Φόρων
-- `total_fees_amount` - Σύνολο Τελών
-- `total_stamp_duty_amount` - Σύνολο Χαρτοσήμου
-- `total_other_taxes_amount` - Σύνολο Λοιπών Φόρων
-- `total_deductions_amount` - Σύνολο Κρατήσεων
-- `total_gross_value` - Συνολική Αξία
-
 <a id="mydata.models_2_0_0.ProviderSignatureType"></a>
 
 ## ProviderSignatureType Objects
@@ -549,6 +529,8 @@ class InvoiceRowType()
 - `other_taxes_amount` - Ποσό Φόρου Διαμονης
 - `deductions_amount` - Ποσό Κρατήσεων
 - `line_comments` - Σχόλια Γραμμής
+- `income_classification` - Λίστα Χαρακτηρισμών Εσόδων
+- `expenses_classification` - Λίστα Χαρακτηρισμού Εξόδων
 - `quantity15` - Ποσότητα Θερμοκρασίας 15 βαθμών
 - `other_measurement_unit_quantity` - Πλήθος Μονάδας Μέτρησης Τεμάχια
   Άλλα
@@ -558,6 +540,28 @@ class InvoiceRowType()
 - `move_purpose_line` - Σκοπός Διακίνησης Γραμμής
 - `other_move_purpose_line_title` - Τίτλος της Λοιπής Αιτίας
   Διακίνησης Γραμμής
+
+<a id="mydata.models_2_0_0.InvoiceSummaryType"></a>
+
+## InvoiceSummaryType Objects
+
+```python
+@dataclass(kw_only=True)
+class InvoiceSummaryType()
+```
+
+**Attributes**:
+
+- `total_net_value` - Σύνολο Καθαρής Αξίας
+- `total_vat_amount` - Σύνολο ΦΠΑ
+- `total_withheld_amount` - Σύνολο Παρ. Φόρων
+- `total_fees_amount` - Σύνολο Τελών
+- `total_stamp_duty_amount` - Σύνολο Χαρτοσήμου
+- `total_other_taxes_amount` - Σύνολο Λοιπών Φόρων
+- `total_deductions_amount` - Σύνολο Κρατήσεων
+- `total_gross_value` - Συνολική Αξία
+- `income_classification` - Λίστα Χαρακτηρισμών Εσόδων
+  expenses_classification:
 
 <a id="mydata.models_2_0_0.OtherDeliveryNoteHeaderType"></a>
 
@@ -916,6 +920,9 @@ class AadeBookInvoiceType()
 - `packings_declarations` - Δηλώσεις Συσκευασιών
 - `invoive_delivery_status` - Κατάσταση (Status) Παραστατικού Δελτίου
   Διακίνησης
+- `delivery_lifecycle` - Το σύνολο των γεγονότων του κύκλου ζωής
+  (lifecycle) του παραστατικού διακίνησης. Είναι read-only -
+  παρέχεται από το myDATA κατά την ανάκτηση
 
 <a id="mydata.models_2_0_0.AadeBookInvoiceType.PaymentMethods"></a>
 
