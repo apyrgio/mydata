@@ -24,6 +24,7 @@ def ingest(api_version, filename):
 
     xsdata_cmd = [
         "xsdata",
+        "generate",
         "-ss",
         "single-package",
         "-ds",
