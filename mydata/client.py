@@ -28,10 +28,10 @@ from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.utils.text import camel_case
 
-from . import models_v1_0_9
+from . import models_2_0_0
 
-MODELS_MODULE_DEV = models_v1_0_9
-MODELS_MODULE_PROD = models_v1_0_9
+MODELS_MODULE_DEV = models_2_0_0
+MODELS_MODULE_PROD = models_2_0_0
 
 BASE_URL_DEV = "https://mydataapidev.aade.gr/"
 BASE_URL_PROD = "https://mydatapi.aade.gr/myDATA/"
@@ -70,9 +70,7 @@ def serialize(obj) -> str:
 class Endpoint(abc.ABC):
     def __init__(self, prod=False):
         self.prod = prod
-        self.models_module = (
-            MODELS_MODULE_PROD if self.prod else MODELS_MODULE_DEV
-        )
+        self.models_module = MODELS_MODULE_PROD if self.prod else MODELS_MODULE_DEV
 
     @property
     @abc.abstractmethod
@@ -173,9 +171,7 @@ class Client:
 
         self.session = requests.Session()
 
-    def request(
-        self, method: str, url: str, params: dict | None = None, data=None
-    ):
+    def request(self, method: str, url: str, params: dict | None = None, data=None):
         req = requests.Request(
             method,
             url,
