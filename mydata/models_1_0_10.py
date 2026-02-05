@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from decimal import Decimal
 from enum import Enum
-from typing import List, Optional
 
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlTime
 
@@ -14,14 +15,14 @@ class ErrorType:
         code: Κωδικός Σφάλαματος
     """
 
-    message: Optional[str] = field(
+    message: str | None = field(
         default=None,
         metadata={
             "type": "Element",
             "required": True,
         },
     )
-    code: Optional[str] = field(
+    code: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -42,7 +43,7 @@ class InvoiceProviderType:
             Παρόχου
     """
 
-    issuer_vat: Optional[str] = field(
+    issuer_vat: str | None = field(
         default=None,
         metadata={
             "name": "issuerVAT",
@@ -50,7 +51,7 @@ class InvoiceProviderType:
             "required": True,
         },
     )
-    invoice_provider_mark: Optional[int] = field(
+    invoice_provider_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceProviderMark",
@@ -58,7 +59,7 @@ class InvoiceProviderType:
             "required": True,
         },
     )
-    invoice_uid: Optional[str] = field(
+    invoice_uid: str | None = field(
         default=None,
         metadata={
             "name": "invoiceUid",
@@ -66,7 +67,7 @@ class InvoiceProviderType:
             "required": True,
         },
     )
-    authentication_code: Optional[str] = field(
+    authentication_code: str | None = field(
         default=None,
         metadata={
             "name": "authenticationCode",
@@ -83,7 +84,7 @@ class ProviderInfoType:
         vatnumber: ΑΦΜ
     """
 
-    vatnumber: List[str] = field(
+    vatnumber: list[str] = field(
         default_factory=list,
         metadata={
             "name": "VATNumber",
@@ -97,7 +98,7 @@ class ContinuationTokenType2:
     class Meta:
         name = "continuationTokenType"
 
-    next_partition_key: Optional[str] = field(
+    next_partition_key: str | None = field(
         default=None,
         metadata={
             "name": "nextPartitionKey",
@@ -105,7 +106,7 @@ class ContinuationTokenType2:
             "required": True,
         },
     )
-    next_row_key: Optional[str] = field(
+    next_row_key: str | None = field(
         default=None,
         metadata={
             "name": "nextRowKey",
@@ -125,7 +126,7 @@ class ReceptionEmailsType:
     class Meta:
         name = "receptionEmailsType"
 
-    email: List[str] = field(
+    email: list[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
@@ -146,7 +147,7 @@ class AddressType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    street: Optional[str] = field(
+    street: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -154,14 +155,14 @@ class AddressType:
             "max_length": 150,
         },
     )
-    number: Optional[str] = field(
+    number: str | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    postal_code: Optional[str] = field(
+    postal_code: str | None = field(
         default=None,
         metadata={
             "name": "postalCode",
@@ -170,7 +171,7 @@ class AddressType:
             "required": True,
         },
     )
-    city: Optional[str] = field(
+    city: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -194,7 +195,7 @@ class CancelledInvoiceType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    invoice_mark: Optional[int] = field(
+    invoice_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceMark",
@@ -203,7 +204,7 @@ class CancelledInvoiceType:
             "required": True,
         },
     )
-    cancellation_mark: Optional[int] = field(
+    cancellation_mark: int | None = field(
         default=None,
         metadata={
             "name": "cancellationMark",
@@ -212,7 +213,7 @@ class CancelledInvoiceType:
             "required": True,
         },
     )
-    cancellation_date: Optional[XmlDate] = field(
+    cancellation_date: XmlDate | None = field(
         default=None,
         metadata={
             "name": "cancellationDate",
@@ -229,7 +230,7 @@ class ContinuationTokenType1:
         name = "ContinuationTokenType"
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    next_partition_key: Optional[str] = field(
+    next_partition_key: str | None = field(
         default=None,
         metadata={
             "name": "nextPartitionKey",
@@ -237,7 +238,7 @@ class ContinuationTokenType1:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    next_row_key: Optional[str] = field(
+    next_row_key: str | None = field(
         default=None,
         metadata={
             "name": "nextRowKey",
@@ -261,7 +262,7 @@ class EcrtokenType:
         name = "ECRTokenType"
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    signing_author: Optional[str] = field(
+    signing_author: str | None = field(
         default=None,
         metadata={
             "name": "SigningAuthor",
@@ -271,7 +272,7 @@ class EcrtokenType:
             "max_length": 15,
         },
     )
-    session_number: Optional[str] = field(
+    session_number: str | None = field(
         default=None,
         metadata={
             "name": "SessionNumber",
@@ -288,7 +289,7 @@ class InvoiceE3DetailType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    v_afm: Optional[str] = field(
+    v_afm: str | None = field(
         default=None,
         metadata={
             "name": "V_Afm",
@@ -296,7 +297,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    v_mark: Optional[str] = field(
+    v_mark: str | None = field(
         default=None,
         metadata={
             "name": "V_Mark",
@@ -304,7 +305,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    v_book: Optional[str] = field(
+    v_book: str | None = field(
         default=None,
         metadata={
             "name": "vBook",
@@ -312,7 +313,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    is_cancelled: Optional[bool] = field(
+    is_cancelled: bool | None = field(
         default=None,
         metadata={
             "name": "IsCancelled",
@@ -320,7 +321,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    issue_date: Optional[XmlDateTime] = field(
+    issue_date: XmlDateTime | None = field(
         default=None,
         metadata={
             "name": "IssueDate",
@@ -329,7 +330,7 @@ class InvoiceE3DetailType:
             "required": True,
         },
     )
-    v_class_category: Optional[str] = field(
+    v_class_category: str | None = field(
         default=None,
         metadata={
             "name": "V_Class_Category",
@@ -337,7 +338,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    v_class_type: Optional[str] = field(
+    v_class_type: str | None = field(
         default=None,
         metadata={
             "name": "V_Class_Type",
@@ -345,7 +346,7 @@ class InvoiceE3DetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    v_class_value: Optional[Decimal] = field(
+    v_class_value: Decimal | None = field(
         default=None,
         metadata={
             "name": "V_Class_Value",
@@ -360,7 +361,7 @@ class InvoiceVatDetailType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    mark: Optional[str] = field(
+    mark: str | None = field(
         default=None,
         metadata={
             "name": "Mark",
@@ -368,7 +369,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    is_cancelled: Optional[bool] = field(
+    is_cancelled: bool | None = field(
         default=None,
         metadata={
             "name": "IsCancelled",
@@ -376,7 +377,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    issue_date: Optional[XmlDateTime] = field(
+    issue_date: XmlDateTime | None = field(
         default=None,
         metadata={
             "name": "IssueDate",
@@ -385,7 +386,7 @@ class InvoiceVatDetailType:
             "required": True,
         },
     )
-    vat301: Optional[Decimal] = field(
+    vat301: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat301",
@@ -393,7 +394,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat302: Optional[Decimal] = field(
+    vat302: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat302",
@@ -401,7 +402,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat303: Optional[Decimal] = field(
+    vat303: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat303",
@@ -409,7 +410,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat304: Optional[Decimal] = field(
+    vat304: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat304",
@@ -417,7 +418,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat305: Optional[Decimal] = field(
+    vat305: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat305",
@@ -425,7 +426,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat306: Optional[Decimal] = field(
+    vat306: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat306",
@@ -433,7 +434,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat331: Optional[Decimal] = field(
+    vat331: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat331",
@@ -441,7 +442,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat332: Optional[Decimal] = field(
+    vat332: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat332",
@@ -449,7 +450,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat333: Optional[Decimal] = field(
+    vat333: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat333",
@@ -457,7 +458,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat334: Optional[Decimal] = field(
+    vat334: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat334",
@@ -465,7 +466,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat335: Optional[Decimal] = field(
+    vat335: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat335",
@@ -473,7 +474,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat336: Optional[Decimal] = field(
+    vat336: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat336",
@@ -481,7 +482,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat361: Optional[Decimal] = field(
+    vat361: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat361",
@@ -489,7 +490,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat362: Optional[Decimal] = field(
+    vat362: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat362",
@@ -497,7 +498,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat363: Optional[Decimal] = field(
+    vat363: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat363",
@@ -505,7 +506,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat364: Optional[Decimal] = field(
+    vat364: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat364",
@@ -513,7 +514,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat365: Optional[Decimal] = field(
+    vat365: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat365",
@@ -521,7 +522,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat366: Optional[Decimal] = field(
+    vat366: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat366",
@@ -529,7 +530,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat381: Optional[Decimal] = field(
+    vat381: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat381",
@@ -537,7 +538,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat382: Optional[Decimal] = field(
+    vat382: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat382",
@@ -545,7 +546,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat383: Optional[Decimal] = field(
+    vat383: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat383",
@@ -553,7 +554,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat384: Optional[Decimal] = field(
+    vat384: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat384",
@@ -561,7 +562,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat385: Optional[Decimal] = field(
+    vat385: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat385",
@@ -569,7 +570,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat386: Optional[Decimal] = field(
+    vat386: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat386",
@@ -577,7 +578,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat342: Optional[Decimal] = field(
+    vat342: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat342",
@@ -585,7 +586,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat345: Optional[Decimal] = field(
+    vat345: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat345",
@@ -593,7 +594,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat348: Optional[Decimal] = field(
+    vat348: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat348",
@@ -601,7 +602,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat349: Optional[Decimal] = field(
+    vat349: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat349",
@@ -609,7 +610,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat310: Optional[Decimal] = field(
+    vat310: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat310",
@@ -617,7 +618,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat402: Optional[Decimal] = field(
+    vat402: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat402",
@@ -625,7 +626,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat407: Optional[Decimal] = field(
+    vat407: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat407",
@@ -633,7 +634,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat411: Optional[Decimal] = field(
+    vat411: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat411",
@@ -641,7 +642,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat423: Optional[Decimal] = field(
+    vat423: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat423",
@@ -649,7 +650,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat422: Optional[Decimal] = field(
+    vat422: Decimal | None = field(
         default=None,
         metadata={
             "name": "Vat422",
@@ -657,7 +658,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat_unclassified361: Optional[Decimal] = field(
+    vat_unclassified361: Decimal | None = field(
         default=None,
         metadata={
             "name": "VatUnclassified361",
@@ -665,7 +666,7 @@ class InvoiceVatDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat_unclassified381: Optional[Decimal] = field(
+    vat_unclassified381: Decimal | None = field(
         default=None,
         metadata={
             "name": "VatUnclassified381",
@@ -686,7 +687,7 @@ class ProviderSignatureType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    signing_author: Optional[str] = field(
+    signing_author: str | None = field(
         default=None,
         metadata={
             "name": "SigningAuthor",
@@ -696,7 +697,7 @@ class ProviderSignatureType:
             "max_length": 20,
         },
     )
-    signature: Optional[str] = field(
+    signature: str | None = field(
         default=None,
         metadata={
             "name": "Signature",
@@ -720,7 +721,7 @@ class ShipType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    application_id: Optional[str] = field(
+    application_id: str | None = field(
         default=None,
         metadata={
             "name": "applicationId",
@@ -729,7 +730,7 @@ class ShipType:
             "required": True,
         },
     )
-    application_date: Optional[XmlDate] = field(
+    application_date: XmlDate | None = field(
         default=None,
         metadata={
             "name": "applicationDate",
@@ -738,7 +739,7 @@ class ShipType:
             "required": True,
         },
     )
-    doy: Optional[str] = field(
+    doy: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -746,7 +747,7 @@ class ShipType:
             "max_length": 150,
         },
     )
-    ship_id: Optional[str] = field(
+    ship_id: str | None = field(
         default=None,
         metadata={
             "name": "shipId",
@@ -771,7 +772,7 @@ class TaxTotalsType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    tax_type: Optional[int] = field(
+    tax_type: int | None = field(
         default=None,
         metadata={
             "name": "taxType",
@@ -782,7 +783,7 @@ class TaxTotalsType:
             "max_inclusive": 5,
         },
     )
-    tax_category: Optional[int] = field(
+    tax_category: int | None = field(
         default=None,
         metadata={
             "name": "taxCategory",
@@ -791,7 +792,7 @@ class TaxTotalsType:
             "min_inclusive": 1,
         },
     )
-    underlying_value: Optional[str] = field(
+    underlying_value: str | None = field(
         default=None,
         metadata={
             "name": "underlyingValue",
@@ -799,7 +800,7 @@ class TaxTotalsType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    tax_amount: Optional[str] = field(
+    tax_amount: str | None = field(
         default=None,
         metadata={
             "name": "taxAmount",
@@ -808,7 +809,7 @@ class TaxTotalsType:
             "required": True,
         },
     )
-    id: Optional[int] = field(
+    id: int | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -827,7 +828,7 @@ class TransportDetailType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    vehicle_number: Optional[str] = field(
+    vehicle_number: str | None = field(
         default=None,
         metadata={
             "name": "vehicleNumber",
@@ -845,7 +846,7 @@ class ContinuationTokenType3:
         name = "continuationTokenType"
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    next_partition_key: Optional[str] = field(
+    next_partition_key: str | None = field(
         default=None,
         metadata={
             "name": "nextPartitionKey",
@@ -854,7 +855,7 @@ class ContinuationTokenType3:
             "required": True,
         },
     )
-    next_row_key: Optional[str] = field(
+    next_row_key: str | None = field(
         default=None,
         metadata={
             "name": "nextRowKey",
@@ -883,7 +884,7 @@ class ExpensesClassificationType:
             "https://www.aade.gr/myDATA/expensesClassificaton/v1.0"
         )
 
-    classification_type: Optional[str] = field(
+    classification_type: str | None = field(
         default=None,
         metadata={
             "name": "classificationType",
@@ -891,7 +892,7 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    classification_category: Optional[str] = field(
+    classification_category: str | None = field(
         default=None,
         metadata={
             "name": "classificationCategory",
@@ -899,7 +900,7 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    amount: Optional[str] = field(
+    amount: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -907,7 +908,7 @@ class ExpensesClassificationType:
             "required": True,
         },
     )
-    vat_amount: Optional[str] = field(
+    vat_amount: str | None = field(
         default=None,
         metadata={
             "name": "vatAmount",
@@ -915,7 +916,7 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    vat_category: Optional[str] = field(
+    vat_category: str | None = field(
         default=None,
         metadata={
             "name": "vatCategory",
@@ -923,7 +924,7 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    vat_exemption_category: Optional[str] = field(
+    vat_exemption_category: str | None = field(
         default=None,
         metadata={
             "name": "vatExemptionCategory",
@@ -931,7 +932,7 @@ class ExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    id: Optional[int] = field(
+    id: int | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -998,7 +999,7 @@ class RequestedProviderDoc:
     Παραστατικά από Πάροχο.
     """
 
-    continuation_token: List[ContinuationTokenType2] = field(
+    continuation_token: list[ContinuationTokenType2] = field(
         default_factory=list,
         metadata={
             "name": "continuationToken",
@@ -1006,7 +1007,7 @@ class RequestedProviderDoc:
             "sequence": 1,
         },
     )
-    invoice_provider_type: List[InvoiceProviderType] = field(
+    invoice_provider_type: list[InvoiceProviderType] = field(
         default_factory=list,
         metadata={
             "name": "InvoiceProviderType",
@@ -1026,7 +1027,7 @@ class ReceptionProvidersType:
     class Meta:
         name = "receptionProvidersType"
 
-    provider_info: List[ProviderInfoType] = field(
+    provider_info: list[ProviderInfoType] = field(
         default_factory=list,
         metadata={
             "name": "ProviderInfo",
@@ -1049,7 +1050,7 @@ class OtherDeliveryNoteHeaderType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    loading_address: Optional[AddressType] = field(
+    loading_address: AddressType | None = field(
         default=None,
         metadata={
             "name": "loadingAddress",
@@ -1058,7 +1059,7 @@ class OtherDeliveryNoteHeaderType:
             "required": True,
         },
     )
-    delivery_address: Optional[AddressType] = field(
+    delivery_address: AddressType | None = field(
         default=None,
         metadata={
             "name": "deliveryAddress",
@@ -1067,7 +1068,7 @@ class OtherDeliveryNoteHeaderType:
             "required": True,
         },
     )
-    start_shipping_branch: Optional[int] = field(
+    start_shipping_branch: int | None = field(
         default=None,
         metadata={
             "name": "startShippingBranch",
@@ -1075,7 +1076,7 @@ class OtherDeliveryNoteHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    complete_shipping_branch: Optional[int] = field(
+    complete_shipping_branch: int | None = field(
         default=None,
         metadata={
             "name": "completeShippingBranch",
@@ -1102,7 +1103,7 @@ class PartyType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    vat_number: Optional[str] = field(
+    vat_number: str | None = field(
         default=None,
         metadata={
             "name": "vatNumber",
@@ -1112,7 +1113,7 @@ class PartyType:
             "max_length": 30,
         },
     )
-    country: Optional[str] = field(
+    country: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1120,7 +1121,7 @@ class PartyType:
             "required": True,
         },
     )
-    branch: Optional[int] = field(
+    branch: int | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1128,7 +1129,7 @@ class PartyType:
             "required": True,
         },
     )
-    name: Optional[str] = field(
+    name: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1136,14 +1137,14 @@ class PartyType:
             "max_length": 200,
         },
     )
-    address: Optional[AddressType] = field(
+    address: AddressType | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    document_id_no: Optional[str] = field(
+    document_id_no: str | None = field(
         default=None,
         metadata={
             "name": "documentIdNo",
@@ -1152,7 +1153,7 @@ class PartyType:
             "max_length": 100,
         },
     )
-    supply_account_no: Optional[str] = field(
+    supply_account_no: str | None = field(
         default=None,
         metadata={
             "name": "supplyAccountNo",
@@ -1161,7 +1162,7 @@ class PartyType:
             "max_length": 100,
         },
     )
-    country_document_id: Optional[str] = field(
+    country_document_id: str | None = field(
         default=None,
         metadata={
             "name": "countryDocumentId",
@@ -1188,7 +1189,7 @@ class PaymentMethodDetailType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    type_value: Optional[int] = field(
+    type_value: int | None = field(
         default=None,
         metadata={
             "name": "type",
@@ -1199,7 +1200,7 @@ class PaymentMethodDetailType:
             "max_inclusive": 8,
         },
     )
-    amount: Optional[str] = field(
+    amount: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1207,7 +1208,7 @@ class PaymentMethodDetailType:
             "required": True,
         },
     )
-    payment_method_info: Optional[str] = field(
+    payment_method_info: str | None = field(
         default=None,
         metadata={
             "name": "paymentMethodInfo",
@@ -1215,7 +1216,7 @@ class PaymentMethodDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    tip_amount: Optional[str] = field(
+    tip_amount: str | None = field(
         default=None,
         metadata={
             "name": "tipAmount",
@@ -1223,7 +1224,7 @@ class PaymentMethodDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    transaction_id: Optional[str] = field(
+    transaction_id: str | None = field(
         default=None,
         metadata={
             "name": "transactionId",
@@ -1231,7 +1232,7 @@ class PaymentMethodDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    tid: Optional[str] = field(
+    tid: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1239,7 +1240,7 @@ class PaymentMethodDetailType:
             "max_length": 200,
         },
     )
-    providers_signature: Optional[ProviderSignatureType] = field(
+    providers_signature: ProviderSignatureType | None = field(
         default=None,
         metadata={
             "name": "ProvidersSignature",
@@ -1247,7 +1248,7 @@ class PaymentMethodDetailType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    ecrtoken: Optional[EcrtokenType] = field(
+    ecrtoken: EcrtokenType | None = field(
         default=None,
         metadata={
             "name": "ECRToken",
@@ -1262,7 +1263,7 @@ class RequestedE3InfoType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    continuation_token: Optional[ContinuationTokenType1] = field(
+    continuation_token: ContinuationTokenType1 | None = field(
         default=None,
         metadata={
             "name": "continuationToken",
@@ -1270,7 +1271,7 @@ class RequestedE3InfoType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    e3_info: List[InvoiceE3DetailType] = field(
+    e3_info: list[InvoiceE3DetailType] = field(
         default_factory=list,
         metadata={
             "name": "E3Info",
@@ -1285,7 +1286,7 @@ class RequestedVatInfoType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    continuation_token: Optional[ContinuationTokenType1] = field(
+    continuation_token: ContinuationTokenType1 | None = field(
         default=None,
         metadata={
             "name": "continuationToken",
@@ -1293,7 +1294,7 @@ class RequestedVatInfoType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vat_info: List[InvoiceVatDetailType] = field(
+    vat_info: list[InvoiceVatDetailType] = field(
         default_factory=list,
         metadata={
             "name": "VatInfo",
@@ -1316,7 +1317,7 @@ class InvoicesExpensesClassificationDetailType:
             "https://www.aade.gr/myDATA/expensesClassificaton/v1.0"
         )
 
-    line_number: Optional[int] = field(
+    line_number: int | None = field(
         default=None,
         metadata={
             "name": "lineNumber",
@@ -1325,7 +1326,7 @@ class InvoicesExpensesClassificationDetailType:
             "required": True,
         },
     )
-    expenses_classification_detail_data: List[ExpensesClassificationType] = (
+    expenses_classification_detail_data: list[ExpensesClassificationType] = (
         field(
             default_factory=list,
             metadata={
@@ -1353,7 +1354,7 @@ class IncomeClassificationType:
             "https://www.aade.gr/myDATA/incomeClassificaton/v1.0"
         )
 
-    classification_type: Optional[IncomeClassificationValueType] = field(
+    classification_type: IncomeClassificationValueType | None = field(
         default=None,
         metadata={
             "name": "classificationType",
@@ -1361,18 +1362,16 @@ class IncomeClassificationType:
             "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
         },
     )
-    classification_category: Optional[IncomeClassificationCategoryType] = (
-        field(
-            default=None,
-            metadata={
-                "name": "classificationCategory",
-                "type": "Element",
-                "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
-                "required": True,
-            },
-        )
+    classification_category: IncomeClassificationCategoryType | None = field(
+        default=None,
+        metadata={
+            "name": "classificationCategory",
+            "type": "Element",
+            "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
+            "required": True,
+        },
     )
-    amount: Optional[Decimal] = field(
+    amount: Decimal | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1383,7 +1382,7 @@ class IncomeClassificationType:
             "fraction_digits": 2,
         },
     )
-    id: Optional[int] = field(
+    id: int | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1410,82 +1409,82 @@ class ResponseType:
         status_code: Κωδικός αποτελέσματος
     """
 
-    index: Optional[int] = field(
+    index: int | None = field(
         default=None,
         metadata={
             "type": "Element",
         },
     )
-    invoice_uid: Optional[str] = field(
+    invoice_uid: str | None = field(
         default=None,
         metadata={
             "name": "invoiceUid",
             "type": "Element",
         },
     )
-    invoice_mark: Optional[int] = field(
+    invoice_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceMark",
             "type": "Element",
         },
     )
-    qr_url: Optional[str] = field(
+    qr_url: str | None = field(
         default=None,
         metadata={
             "name": "qrUrl",
             "type": "Element",
         },
     )
-    classification_mark: Optional[int] = field(
+    classification_mark: int | None = field(
         default=None,
         metadata={
             "name": "classificationMark",
             "type": "Element",
         },
     )
-    cancellation_mark: Optional[int] = field(
+    cancellation_mark: int | None = field(
         default=None,
         metadata={
             "name": "cancellationMark",
             "type": "Element",
         },
     )
-    payment_method_mark: Optional[int] = field(
+    payment_method_mark: int | None = field(
         default=None,
         metadata={
             "name": "paymentMethodMark",
             "type": "Element",
         },
     )
-    authentication_code: Optional[str] = field(
+    authentication_code: str | None = field(
         default=None,
         metadata={
             "name": "authenticationCode",
             "type": "Element",
         },
     )
-    reception_providers: Optional[ReceptionProvidersType] = field(
+    reception_providers: ReceptionProvidersType | None = field(
         default=None,
         metadata={
             "name": "receptionProviders",
             "type": "Element",
         },
     )
-    reception_emails: Optional[ReceptionEmailsType] = field(
+    reception_emails: ReceptionEmailsType | None = field(
         default=None,
         metadata={
             "name": "receptionEmails",
             "type": "Element",
         },
     )
-    errors: Optional["ResponseType.Errors"] = field(
+    errors: ResponseType.Errors | None = field(
         default=None,
         metadata={
             "type": "Element",
         },
     )
-    status_code: Optional[str] = field(
+    status_code: str | None = field(
         default=None,
         metadata={
             "name": "statusCode",
@@ -1496,7 +1495,7 @@ class ResponseType:
 
     @dataclass
     class Errors:
-        error: List[ErrorType] = field(
+        error: list[ErrorType] = field(
             default_factory=list,
             metadata={
                 "type": "Element",
@@ -1516,7 +1515,7 @@ class EntityType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    type_value: Optional[int] = field(
+    type_value: int | None = field(
         default=None,
         metadata={
             "name": "type",
@@ -1527,7 +1526,7 @@ class EntityType:
             "max_inclusive": 6,
         },
     )
-    entity_data: Optional[PartyType] = field(
+    entity_data: PartyType | None = field(
         default=None,
         metadata={
             "name": "entityData",
@@ -1580,7 +1579,7 @@ class InvoiceRowType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    line_number: Optional[int] = field(
+    line_number: int | None = field(
         default=None,
         metadata={
             "name": "lineNumber",
@@ -1590,7 +1589,7 @@ class InvoiceRowType:
             "min_inclusive": 1,
         },
     )
-    rec_type: Optional[int] = field(
+    rec_type: int | None = field(
         default=None,
         metadata={
             "name": "recType",
@@ -1600,7 +1599,7 @@ class InvoiceRowType:
             "max_inclusive": 7,
         },
     )
-    taric_no: Optional[str] = field(
+    taric_no: str | None = field(
         default=None,
         metadata={
             "name": "TaricNo",
@@ -1609,7 +1608,7 @@ class InvoiceRowType:
             "length": 10,
         },
     )
-    item_code: Optional[str] = field(
+    item_code: str | None = field(
         default=None,
         metadata={
             "name": "itemCode",
@@ -1618,7 +1617,7 @@ class InvoiceRowType:
             "max_length": 50,
         },
     )
-    item_descr: Optional[str] = field(
+    item_descr: str | None = field(
         default=None,
         metadata={
             "name": "itemDescr",
@@ -1627,7 +1626,7 @@ class InvoiceRowType:
             "max_length": 300,
         },
     )
-    fuel_code: Optional[str] = field(
+    fuel_code: str | None = field(
         default=None,
         metadata={
             "name": "fuelCode",
@@ -1635,7 +1634,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    quantity: Optional[Decimal] = field(
+    quantity: Decimal | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1643,7 +1642,7 @@ class InvoiceRowType:
             "min_exclusive": Decimal("0"),
         },
     )
-    measurement_unit: Optional[str] = field(
+    measurement_unit: str | None = field(
         default=None,
         metadata={
             "name": "measurementUnit",
@@ -1651,7 +1650,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    invoice_detail_type: Optional[str] = field(
+    invoice_detail_type: str | None = field(
         default=None,
         metadata={
             "name": "invoiceDetailType",
@@ -1659,7 +1658,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    net_value: Optional[str] = field(
+    net_value: str | None = field(
         default=None,
         metadata={
             "name": "netValue",
@@ -1668,7 +1667,7 @@ class InvoiceRowType:
             "required": True,
         },
     )
-    vat_category: Optional[str] = field(
+    vat_category: str | None = field(
         default=None,
         metadata={
             "name": "vatCategory",
@@ -1677,7 +1676,7 @@ class InvoiceRowType:
             "required": True,
         },
     )
-    vat_amount: Optional[str] = field(
+    vat_amount: str | None = field(
         default=None,
         metadata={
             "name": "vatAmount",
@@ -1686,7 +1685,7 @@ class InvoiceRowType:
             "required": True,
         },
     )
-    vat_exemption_category: Optional[str] = field(
+    vat_exemption_category: str | None = field(
         default=None,
         metadata={
             "name": "vatExemptionCategory",
@@ -1694,14 +1693,14 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    dienergia: Optional[ShipType] = field(
+    dienergia: ShipType | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    discount_option: Optional[bool] = field(
+    discount_option: bool | None = field(
         default=None,
         metadata={
             "name": "discountOption",
@@ -1709,7 +1708,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    withheld_amount: Optional[str] = field(
+    withheld_amount: str | None = field(
         default=None,
         metadata={
             "name": "withheldAmount",
@@ -1717,7 +1716,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    withheld_percent_category: Optional[str] = field(
+    withheld_percent_category: str | None = field(
         default=None,
         metadata={
             "name": "withheldPercentCategory",
@@ -1725,7 +1724,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    stamp_duty_amount: Optional[str] = field(
+    stamp_duty_amount: str | None = field(
         default=None,
         metadata={
             "name": "stampDutyAmount",
@@ -1733,7 +1732,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    stamp_duty_percent_category: Optional[str] = field(
+    stamp_duty_percent_category: str | None = field(
         default=None,
         metadata={
             "name": "stampDutyPercentCategory",
@@ -1741,7 +1740,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    fees_amount: Optional[str] = field(
+    fees_amount: str | None = field(
         default=None,
         metadata={
             "name": "feesAmount",
@@ -1749,7 +1748,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    fees_percent_category: Optional[str] = field(
+    fees_percent_category: str | None = field(
         default=None,
         metadata={
             "name": "feesPercentCategory",
@@ -1757,7 +1756,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_taxes_percent_category: Optional[str] = field(
+    other_taxes_percent_category: str | None = field(
         default=None,
         metadata={
             "name": "otherTaxesPercentCategory",
@@ -1765,7 +1764,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_taxes_amount: Optional[str] = field(
+    other_taxes_amount: str | None = field(
         default=None,
         metadata={
             "name": "otherTaxesAmount",
@@ -1773,7 +1772,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    deductions_amount: Optional[str] = field(
+    deductions_amount: str | None = field(
         default=None,
         metadata={
             "name": "deductionsAmount",
@@ -1781,7 +1780,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    line_comments: Optional[str] = field(
+    line_comments: str | None = field(
         default=None,
         metadata={
             "name": "lineComments",
@@ -1790,7 +1789,7 @@ class InvoiceRowType:
             "max_length": 150,
         },
     )
-    income_classification: List[IncomeClassificationType] = field(
+    income_classification: list[IncomeClassificationType] = field(
         default_factory=list,
         metadata={
             "name": "incomeClassification",
@@ -1798,7 +1797,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    expenses_classification: List[ExpensesClassificationType] = field(
+    expenses_classification: list[ExpensesClassificationType] = field(
         default_factory=list,
         metadata={
             "name": "expensesClassification",
@@ -1806,7 +1805,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    quantity15: Optional[Decimal] = field(
+    quantity15: Decimal | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1814,7 +1813,7 @@ class InvoiceRowType:
             "min_exclusive": Decimal("0"),
         },
     )
-    other_measurement_unit_quantity: Optional[int] = field(
+    other_measurement_unit_quantity: int | None = field(
         default=None,
         metadata={
             "name": "otherMeasurementUnitQuantity",
@@ -1822,7 +1821,7 @@ class InvoiceRowType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_measurement_unit_title: Optional[str] = field(
+    other_measurement_unit_title: str | None = field(
         default=None,
         metadata={
             "name": "otherMeasurementUnitTitle",
@@ -1831,7 +1830,7 @@ class InvoiceRowType:
             "max_length": 150,
         },
     )
-    not_vat195: Optional[bool] = field(
+    not_vat195: bool | None = field(
         default=None,
         metadata={
             "name": "notVAT195",
@@ -1860,7 +1859,7 @@ class InvoiceSummaryType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    total_net_value: Optional[str] = field(
+    total_net_value: str | None = field(
         default=None,
         metadata={
             "name": "totalNetValue",
@@ -1869,7 +1868,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_vat_amount: Optional[str] = field(
+    total_vat_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalVatAmount",
@@ -1878,7 +1877,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_withheld_amount: Optional[str] = field(
+    total_withheld_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalWithheldAmount",
@@ -1887,7 +1886,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_fees_amount: Optional[str] = field(
+    total_fees_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalFeesAmount",
@@ -1896,7 +1895,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_stamp_duty_amount: Optional[str] = field(
+    total_stamp_duty_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalStampDutyAmount",
@@ -1905,7 +1904,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_other_taxes_amount: Optional[str] = field(
+    total_other_taxes_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalOtherTaxesAmount",
@@ -1914,7 +1913,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_deductions_amount: Optional[str] = field(
+    total_deductions_amount: str | None = field(
         default=None,
         metadata={
             "name": "totalDeductionsAmount",
@@ -1923,7 +1922,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    total_gross_value: Optional[str] = field(
+    total_gross_value: str | None = field(
         default=None,
         metadata={
             "name": "totalGrossValue",
@@ -1932,7 +1931,7 @@ class InvoiceSummaryType:
             "required": True,
         },
     )
-    income_classification: List[IncomeClassificationType] = field(
+    income_classification: list[IncomeClassificationType] = field(
         default_factory=list,
         metadata={
             "name": "incomeClassification",
@@ -1940,7 +1939,7 @@ class InvoiceSummaryType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    expenses_classification: List[ExpensesClassificationType] = field(
+    expenses_classification: list[ExpensesClassificationType] = field(
         default_factory=list,
         metadata={
             "name": "expensesClassification",
@@ -1980,7 +1979,7 @@ class InvoiceExpensesClassificationType:
             "https://www.aade.gr/myDATA/expensesClassificaton/v1.0"
         )
 
-    invoice_mark: Optional[int] = field(
+    invoice_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceMark",
@@ -1989,7 +1988,7 @@ class InvoiceExpensesClassificationType:
             "required": True,
         },
     )
-    classification_mark: Optional[int] = field(
+    classification_mark: int | None = field(
         default=None,
         metadata={
             "name": "classificationMark",
@@ -1997,7 +1996,7 @@ class InvoiceExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    entity_vat_number: Optional[str] = field(
+    entity_vat_number: str | None = field(
         default=None,
         metadata={
             "name": "entityVatNumber",
@@ -2005,7 +2004,7 @@ class InvoiceExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    transaction_mode: Optional[int] = field(
+    transaction_mode: int | None = field(
         default=None,
         metadata={
             "name": "transactionMode",
@@ -2015,7 +2014,7 @@ class InvoiceExpensesClassificationType:
             "max_inclusive": 2,
         },
     )
-    invoices_expenses_classification_details: List[
+    invoices_expenses_classification_details: list[
         InvoicesExpensesClassificationDetailType
     ] = field(
         default_factory=list,
@@ -2025,7 +2024,7 @@ class InvoiceExpensesClassificationType:
             "namespace": "https://www.aade.gr/myDATA/expensesClassificaton/v1.0",
         },
     )
-    classification_post_mode: Optional[int] = field(
+    classification_post_mode: int | None = field(
         default=None,
         metadata={
             "name": "classificationPostMode",
@@ -2050,7 +2049,7 @@ class InvoicesIncomeClassificationDetailType:
             "https://www.aade.gr/myDATA/incomeClassificaton/v1.0"
         )
 
-    line_number: Optional[int] = field(
+    line_number: int | None = field(
         default=None,
         metadata={
             "name": "lineNumber",
@@ -2059,7 +2058,7 @@ class InvoicesIncomeClassificationDetailType:
             "required": True,
         },
     )
-    income_classification_detail_data: List[IncomeClassificationType] = field(
+    income_classification_detail_data: list[IncomeClassificationType] = field(
         default_factory=list,
         metadata={
             "name": "incomeClassificationDetailData",
@@ -2084,7 +2083,7 @@ class PaymentMethodType:
     class Meta:
         target_namespace = "https://www.aade.gr/myDATA/paymentMethod/v1.0"
 
-    invoice_mark: Optional[int] = field(
+    invoice_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceMark",
@@ -2093,7 +2092,7 @@ class PaymentMethodType:
             "required": True,
         },
     )
-    payment_method_mark: Optional[int] = field(
+    payment_method_mark: int | None = field(
         default=None,
         metadata={
             "name": "paymentMethodMark",
@@ -2101,7 +2100,7 @@ class PaymentMethodType:
             "namespace": "https://www.aade.gr/myDATA/paymentMethod/v1.0",
         },
     )
-    entity_vat_number: Optional[str] = field(
+    entity_vat_number: str | None = field(
         default=None,
         metadata={
             "name": "entityVatNumber",
@@ -2109,7 +2108,7 @@ class PaymentMethodType:
             "namespace": "https://www.aade.gr/myDATA/paymentMethod/v1.0",
         },
     )
-    payment_method_details: List[PaymentMethodDetailType] = field(
+    payment_method_details: list[PaymentMethodDetailType] = field(
         default_factory=list,
         metadata={
             "name": "paymentMethodDetails",
@@ -2126,7 +2125,7 @@ class ResponseDoc:
     Comment describing your root element.
     """
 
-    response: List[ResponseType] = field(
+    response: list[ResponseType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
@@ -2169,7 +2168,7 @@ class InvoiceHeaderType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    series: Optional[str] = field(
+    series: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -2178,7 +2177,7 @@ class InvoiceHeaderType:
             "max_length": 50,
         },
     )
-    aa: Optional[str] = field(
+    aa: str | None = field(
         default=None,
         metadata={
             "type": "Element",
@@ -2187,7 +2186,7 @@ class InvoiceHeaderType:
             "max_length": 50,
         },
     )
-    issue_date: Optional[XmlDate] = field(
+    issue_date: XmlDate | None = field(
         default=None,
         metadata={
             "name": "issueDate",
@@ -2196,7 +2195,7 @@ class InvoiceHeaderType:
             "required": True,
         },
     )
-    invoice_type: Optional[str] = field(
+    invoice_type: str | None = field(
         default=None,
         metadata={
             "name": "invoiceType",
@@ -2205,7 +2204,7 @@ class InvoiceHeaderType:
             "required": True,
         },
     )
-    vat_payment_suspension: Optional[bool] = field(
+    vat_payment_suspension: bool | None = field(
         default=None,
         metadata={
             "name": "vatPaymentSuspension",
@@ -2213,14 +2212,14 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    currency: Optional[str] = field(
+    currency: str | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    exchange_rate: Optional[str] = field(
+    exchange_rate: str | None = field(
         default=None,
         metadata={
             "name": "exchangeRate",
@@ -2228,7 +2227,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    correlated_invoices: List[int] = field(
+    correlated_invoices: list[int] = field(
         default_factory=list,
         metadata={
             "name": "correlatedInvoices",
@@ -2236,7 +2235,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    self_pricing: Optional[bool] = field(
+    self_pricing: bool | None = field(
         default=None,
         metadata={
             "name": "selfPricing",
@@ -2244,7 +2243,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    dispatch_date: Optional[XmlDate] = field(
+    dispatch_date: XmlDate | None = field(
         default=None,
         metadata={
             "name": "dispatchDate",
@@ -2252,7 +2251,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    dispatch_time: Optional[XmlTime] = field(
+    dispatch_time: XmlTime | None = field(
         default=None,
         metadata={
             "name": "dispatchTime",
@@ -2260,7 +2259,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    vehicle_number: Optional[str] = field(
+    vehicle_number: str | None = field(
         default=None,
         metadata={
             "name": "vehicleNumber",
@@ -2269,7 +2268,7 @@ class InvoiceHeaderType:
             "max_length": 150,
         },
     )
-    move_purpose: Optional[int] = field(
+    move_purpose: int | None = field(
         default=None,
         metadata={
             "name": "movePurpose",
@@ -2279,7 +2278,7 @@ class InvoiceHeaderType:
             "max_inclusive": 19,
         },
     )
-    fuel_invoice: Optional[bool] = field(
+    fuel_invoice: bool | None = field(
         default=None,
         metadata={
             "name": "fuelInvoice",
@@ -2287,7 +2286,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    special_invoice_category: Optional[str] = field(
+    special_invoice_category: str | None = field(
         default=None,
         metadata={
             "name": "specialInvoiceCategory",
@@ -2295,7 +2294,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    invoice_variation_type: Optional[str] = field(
+    invoice_variation_type: str | None = field(
         default=None,
         metadata={
             "name": "invoiceVariationType",
@@ -2303,7 +2302,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_correlated_entities: List[EntityType] = field(
+    other_correlated_entities: list[EntityType] = field(
         default_factory=list,
         metadata={
             "name": "otherCorrelatedEntities",
@@ -2311,7 +2310,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_delivery_note_header: Optional[OtherDeliveryNoteHeaderType] = field(
+    other_delivery_note_header: OtherDeliveryNoteHeaderType | None = field(
         default=None,
         metadata={
             "name": "otherDeliveryNoteHeader",
@@ -2319,7 +2318,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    is_delivery_note: Optional[bool] = field(
+    is_delivery_note: bool | None = field(
         default=None,
         metadata={
             "name": "isDeliveryNote",
@@ -2327,7 +2326,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_move_purpose_title: Optional[str] = field(
+    other_move_purpose_title: str | None = field(
         default=None,
         metadata={
             "name": "otherMovePurposeTitle",
@@ -2336,7 +2335,7 @@ class InvoiceHeaderType:
             "max_length": 150,
         },
     )
-    third_party_collection: Optional[bool] = field(
+    third_party_collection: bool | None = field(
         default=None,
         metadata={
             "name": "thirdPartyCollection",
@@ -2344,7 +2343,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    multiple_connected_marks: List[int] = field(
+    multiple_connected_marks: list[int] = field(
         default_factory=list,
         metadata={
             "name": "multipleConnectedMarks",
@@ -2352,7 +2351,7 @@ class InvoiceHeaderType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    table_aa: Optional[str] = field(
+    table_aa: str | None = field(
         default=None,
         metadata={
             "name": "tableAA",
@@ -2361,7 +2360,7 @@ class InvoiceHeaderType:
             "max_length": 50,
         },
     )
-    total_cancel_delivery_orders: Optional[bool] = field(
+    total_cancel_delivery_orders: bool | None = field(
         default=None,
         metadata={
             "name": "totalCancelDeliveryOrders",
@@ -2380,7 +2379,7 @@ class ExpensesClassificationsDoc:
     class Meta:
         namespace = "https://www.aade.gr/myDATA/expensesClassificaton/v1.0"
 
-    expenses_invoice_classification: List[
+    expenses_invoice_classification: list[
         InvoiceExpensesClassificationType
     ] = field(
         default_factory=list,
@@ -2409,7 +2408,7 @@ class InvoiceIncomeClassificationType:
             "https://www.aade.gr/myDATA/incomeClassificaton/v1.0"
         )
 
-    invoice_mark: Optional[int] = field(
+    invoice_mark: int | None = field(
         default=None,
         metadata={
             "name": "invoiceMark",
@@ -2418,7 +2417,7 @@ class InvoiceIncomeClassificationType:
             "required": True,
         },
     )
-    classification_mark: Optional[int] = field(
+    classification_mark: int | None = field(
         default=None,
         metadata={
             "name": "classificationMark",
@@ -2426,7 +2425,7 @@ class InvoiceIncomeClassificationType:
             "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
         },
     )
-    entity_vat_number: Optional[str] = field(
+    entity_vat_number: str | None = field(
         default=None,
         metadata={
             "name": "entityVatNumber",
@@ -2434,7 +2433,7 @@ class InvoiceIncomeClassificationType:
             "namespace": "https://www.aade.gr/myDATA/incomeClassificaton/v1.0",
         },
     )
-    transaction_mode: Optional[int] = field(
+    transaction_mode: int | None = field(
         default=None,
         metadata={
             "name": "transactionMode",
@@ -2444,7 +2443,7 @@ class InvoiceIncomeClassificationType:
             "max_inclusive": 2,
         },
     )
-    invoices_income_classification_details: List[
+    invoices_income_classification_details: list[
         InvoicesIncomeClassificationDetailType
     ] = field(
         default_factory=list,
@@ -2465,7 +2464,7 @@ class PaymentMethodsDoc:
     class Meta:
         namespace = "https://www.aade.gr/myDATA/paymentMethod/v1.0"
 
-    payment_methods: List[PaymentMethodType] = field(
+    payment_methods: list[PaymentMethodType] = field(
         default_factory=list,
         metadata={
             "name": "paymentMethods",
@@ -2500,21 +2499,21 @@ class AadeBookInvoiceType:
     class Meta:
         target_namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    uid: Optional[str] = field(
+    uid: str | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    mark: Optional[int] = field(
+    mark: int | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    cancelled_by_mark: Optional[int] = field(
+    cancelled_by_mark: int | None = field(
         default=None,
         metadata={
             "name": "cancelledByMark",
@@ -2522,7 +2521,7 @@ class AadeBookInvoiceType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    authentication_code: Optional[str] = field(
+    authentication_code: str | None = field(
         default=None,
         metadata={
             "name": "authenticationCode",
@@ -2530,7 +2529,7 @@ class AadeBookInvoiceType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    transmission_failure: Optional[int] = field(
+    transmission_failure: int | None = field(
         default=None,
         metadata={
             "name": "transmissionFailure",
@@ -2540,21 +2539,21 @@ class AadeBookInvoiceType:
             "max_inclusive": 3,
         },
     )
-    issuer: Optional[PartyType] = field(
+    issuer: PartyType | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    counterpart: Optional[PartyType] = field(
+    counterpart: PartyType | None = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    invoice_header: Optional[InvoiceHeaderType] = field(
+    invoice_header: InvoiceHeaderType | None = field(
         default=None,
         metadata={
             "name": "invoiceHeader",
@@ -2563,7 +2562,7 @@ class AadeBookInvoiceType:
             "required": True,
         },
     )
-    payment_methods: Optional["AadeBookInvoiceType.PaymentMethods"] = field(
+    payment_methods: AadeBookInvoiceType.PaymentMethods | None = field(
         default=None,
         metadata={
             "name": "paymentMethods",
@@ -2571,7 +2570,7 @@ class AadeBookInvoiceType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    invoice_details: List[InvoiceRowType] = field(
+    invoice_details: list[InvoiceRowType] = field(
         default_factory=list,
         metadata={
             "name": "invoiceDetails",
@@ -2580,7 +2579,7 @@ class AadeBookInvoiceType:
             "min_occurs": 1,
         },
     )
-    taxes_totals: Optional["AadeBookInvoiceType.TaxesTotals"] = field(
+    taxes_totals: AadeBookInvoiceType.TaxesTotals | None = field(
         default=None,
         metadata={
             "name": "taxesTotals",
@@ -2588,7 +2587,7 @@ class AadeBookInvoiceType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    invoice_summary: Optional[InvoiceSummaryType] = field(
+    invoice_summary: InvoiceSummaryType | None = field(
         default=None,
         metadata={
             "name": "invoiceSummary",
@@ -2597,7 +2596,7 @@ class AadeBookInvoiceType:
             "required": True,
         },
     )
-    qr_code_url: Optional[str] = field(
+    qr_code_url: str | None = field(
         default=None,
         metadata={
             "name": "qrCodeUrl",
@@ -2605,7 +2604,7 @@ class AadeBookInvoiceType:
             "namespace": "http://www.aade.gr/myDATA/invoice/v1.0",
         },
     )
-    other_transport_details: List[TransportDetailType] = field(
+    other_transport_details: list[TransportDetailType] = field(
         default_factory=list,
         metadata={
             "name": "otherTransportDetails",
@@ -2621,7 +2620,7 @@ class AadeBookInvoiceType:
             payment_method_details: Στοιχεία Πληρωμών
         """
 
-        payment_method_details: List[PaymentMethodDetailType] = field(
+        payment_method_details: list[PaymentMethodDetailType] = field(
             default_factory=list,
             metadata={
                 "name": "paymentMethodDetails",
@@ -2633,7 +2632,7 @@ class AadeBookInvoiceType:
 
     @dataclass
     class TaxesTotals:
-        taxes: List[TaxTotalsType] = field(
+        taxes: list[TaxTotalsType] = field(
             default_factory=list,
             metadata={
                 "type": "Element",
@@ -2652,7 +2651,7 @@ class IncomeClassificationsDoc:
     class Meta:
         namespace = "https://www.aade.gr/myDATA/incomeClassificaton/v1.0"
 
-    income_invoice_classification: List[InvoiceIncomeClassificationType] = (
+    income_invoice_classification: list[InvoiceIncomeClassificationType] = (
         field(
             default_factory=list,
             metadata={
@@ -2673,7 +2672,7 @@ class InvoicesDoc:
     class Meta:
         namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    invoice: List[AadeBookInvoiceType] = field(
+    invoice: list[AadeBookInvoiceType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
@@ -2687,48 +2686,46 @@ class RequestedDoc:
     class Meta:
         namespace = "http://www.aade.gr/myDATA/invoice/v1.0"
 
-    continuation_token: Optional[ContinuationTokenType3] = field(
+    continuation_token: ContinuationTokenType3 | None = field(
         default=None,
         metadata={
             "name": "continuationToken",
             "type": "Element",
         },
     )
-    invoices_doc: Optional["RequestedDoc.InvoicesDoc"] = field(
+    invoices_doc: RequestedDoc.InvoicesDoc | None = field(
         default=None,
         metadata={
             "name": "invoicesDoc",
             "type": "Element",
         },
     )
-    cancelled_invoices_doc: Optional["RequestedDoc.CancelledInvoicesDoc"] = (
-        field(
-            default=None,
-            metadata={
-                "name": "cancelledInvoicesDoc",
-                "type": "Element",
-            },
-        )
+    cancelled_invoices_doc: RequestedDoc.CancelledInvoicesDoc | None = field(
+        default=None,
+        metadata={
+            "name": "cancelledInvoicesDoc",
+            "type": "Element",
+        },
     )
-    income_classifications_doc: Optional[
-        "RequestedDoc.IncomeClassificationsDoc"
-    ] = field(
+    income_classifications_doc: (
+        RequestedDoc.IncomeClassificationsDoc | None
+    ) = field(
         default=None,
         metadata={
             "name": "incomeClassificationsDoc",
             "type": "Element",
         },
     )
-    expenses_classifications_doc: Optional[
-        "RequestedDoc.ExpensesClassificationsDoc"
-    ] = field(
+    expenses_classifications_doc: (
+        RequestedDoc.ExpensesClassificationsDoc | None
+    ) = field(
         default=None,
         metadata={
             "name": "expensesClassificationsDoc",
             "type": "Element",
         },
     )
-    payment_methods_doc: Optional["RequestedDoc.PaymentMethodsDoc"] = field(
+    payment_methods_doc: RequestedDoc.PaymentMethodsDoc | None = field(
         default=None,
         metadata={
             "name": "paymentMethodsDoc",
@@ -2738,7 +2735,7 @@ class RequestedDoc:
 
     @dataclass
     class InvoicesDoc:
-        invoice: List[AadeBookInvoiceType] = field(
+        invoice: list[AadeBookInvoiceType] = field(
             default_factory=list,
             metadata={
                 "type": "Element",
@@ -2747,7 +2744,7 @@ class RequestedDoc:
 
     @dataclass
     class CancelledInvoicesDoc:
-        cancelled_invoice: List[CancelledInvoiceType] = field(
+        cancelled_invoice: list[CancelledInvoiceType] = field(
             default_factory=list,
             metadata={
                 "name": "cancelledInvoice",
@@ -2757,7 +2754,7 @@ class RequestedDoc:
 
     @dataclass
     class IncomeClassificationsDoc:
-        income_invoice_classification: List[
+        income_invoice_classification: list[
             InvoiceIncomeClassificationType
         ] = field(
             default_factory=list,
@@ -2769,7 +2766,7 @@ class RequestedDoc:
 
     @dataclass
     class ExpensesClassificationsDoc:
-        expenses_invoice_classification: List[
+        expenses_invoice_classification: list[
             InvoiceExpensesClassificationType
         ] = field(
             default_factory=list,
@@ -2781,7 +2778,7 @@ class RequestedDoc:
 
     @dataclass
     class PaymentMethodsDoc:
-        payment_methods: List[PaymentMethodType] = field(
+        payment_methods: list[PaymentMethodType] = field(
             default_factory=list,
             metadata={
                 "name": "paymentMethods",
