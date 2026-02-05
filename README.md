@@ -46,11 +46,11 @@ There are two command groups that you can invoke:
 
 ## Building
 
-Install [Poetry](https://python-poetry.org/). Then, install the project
+Install [uv](https://docs.astral.sh/uv/). Then, install the project
 dependencies:
 
 ```
-poetry install
+uv install
 ```
 
 ### Adding new XSD schemas
@@ -63,7 +63,7 @@ latest API. You can include them in the project as follows:
 * Run the following command:
 
   ```
-  poetry run ingest-xsd --api-version 1.0.10 /path/to/xsd.zip
+  uv run ingest-xsd --api-version 1.0.10 /path/to/xsd.zip
   ```
 
 * Commit the final result
