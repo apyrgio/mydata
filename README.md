@@ -66,8 +66,6 @@ latest API. You can include them in the project as follows:
   uv run ingest-xsd --api-version 1.0.10 /path/to/xsd.zip
   ```
 
-* Update `mydata/client.py` to point to the new models.
-
 * Commit the final result
 
 
