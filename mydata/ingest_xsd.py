@@ -16,7 +16,7 @@ def ingest(api_version, filename):
     root_dir = pathlib.Path(__file__).parent.parent
     api_version_underscore = api_version.replace(".", "_")
     models_module = f"mydata.models_{api_version_underscore}"
-    docs_md = root_dir / "docs" / f"models_v{api_version_underscore}.md"
+    simple_types_module = f"mydata.simple_types_{api_version_underscore}"
     schema_dir = root_dir / "schemas" / api_version
 
     with zipfile.ZipFile(filename) as xsd_zip:
@@ -30,28 +30,34 @@ def ingest(api_version, filename):
     # If this file remains in the schemas, then xsdata will pick it and will
     # produce bad Python models, that will break parsing. For this reason, we
     # remove it here.
-    aade_detailed_xsd = (
-        schema_dir / f"InvoicesDoc-v{api_version}_aade_detailed.xsd"
-    )
+    aade_detailed_xsd = schema_dir / f"InvoicesDoc-v{api_version}_aade_detailed.xsd"
     aade_detailed_xsd.unlink(missing_ok=True)
 
-    xsdata_cmd = [
-        "xsdata",
-        "generate",
-        "-ss",
-        "single-package",
-        "-ds",
-        "Google",
-        "-r",
-        schema_dir,
-        "-p",
-        models_module,
-    ]
-    subprocess.run(xsdata_cmd, check=True)
+    # We need to generate the simple types as a separate step, since they are
+    # ignored by default:
+    # https://github.com/tefra/xsdata/issues/692
+    for src, module in [
+        (schema_dir, models_module),
+        (schema_dir / f"SimpleTypes-v{api_version}.xsd", simple_types_module),
+    ]:
+        xsdata_cmd = [
+            "xsdata",
+            "generate",
+            "--debug",
+            "-ss",
+            "filenames",
+            "-ds",
+            "Google",
+            "-r",
+            src,
+            "-p",
+            module,
+        ]
+        subprocess.run(xsdata_cmd, check=True)
 
-    with open(docs_md, "w+") as f:
-        pydoc_cmd = ["pydoc-markdown", "-m", models_module, "--render-toc"]
-        subprocess.run(pydoc_cmd, check=True, stdout=f)
+    with open(root_dir / "mydata" / "models.py", "w+") as f:
+        f.write(f"from .models_{api_version_underscore} import *\n")
+        f.write(f"from .simple_types_{api_version_underscore} import *\n")
 
 
 if __name__ == "__main__":
